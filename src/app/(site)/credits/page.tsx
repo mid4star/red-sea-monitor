@@ -49,7 +49,7 @@ export default function CreditsPage() {
 
           <h2>2. Photography & Scientific Media</h2>
           <p>
-            All media published across dispatches, gazetteer entries, and species dossiers adhere to strict licensing standards. We never hotlink, scrap copyrighted media, or use restrictive NC/ND media:
+            All media published across dispatches, gazetteer entries, and species dossiers adhere to strict licensing standards. We never hotlink, scrape copyrighted media, or use restrictive NC/ND media:
           </p>
           <ul>
             <li>
@@ -63,7 +63,122 @@ export default function CreditsPage() {
             </li>
           </ul>
 
-          <h2>3. Taxonomic & Conservation Authority Data</h2>
+          <h2>3. Verified Home Page Media Inventory (14 Distinct Visuals)</h2>
+          <div className="overflow-x-auto not-prose my-6 border border-rule rounded-md">
+            <table className="w-full text-left text-xs font-sans">
+              <thead className="bg-sand-100 dark:bg-sea-900/60 font-mono text-[11px] uppercase border-b border-rule text-ink dark:text-paper">
+                <tr>
+                  <th className="p-2.5">Placement</th>
+                  <th className="p-2.5">Subject</th>
+                  <th className="p-2.5">Source & ID</th>
+                  <th className="p-2.5">License</th>
+                  <th className="p-2.5">Match Verification Note</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-rule/40 text-[11px]">
+                <tr>
+                  <td className="p-2.5 font-mono">Hero Background</td>
+                  <td className="p-2.5">Panoramic coral reef wall & schooling anthias</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1544551763-46a013bb70d5)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Red Sea reef wall with Anthias fish</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Hero Field Card</td>
+                  <td className="p-2.5">Hawksbill sea turtle foraging</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1518467166778-b88f373ffec7)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Sea turtle swimming over coral reef</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">News Lead Story</td>
+                  <td className="p-2.5">Northern Red Sea thermal refugia hard corals</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1546026423-cc4642628d2b)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Dense tropical hard coral benthos</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">News Secondary 1</td>
+                  <td className="p-2.5">Littoral mangrove lagoon & shoreline</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1507525428034-b723cf961d3e)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Pristine tropical shoreline waters</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">News Secondary 2</td>
+                  <td className="p-2.5">Historic stone coastal port architecture</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1570077188670-e3a8d69ac5ff)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Coastal harbor and traditional stone masonry</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">News Newly Pub 1</td>
+                  <td className="p-2.5">Northern Red Sea pelagic waters & dropoff</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1682687220063-4742bd7fd538)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Deep pelagic water current transect</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">News Newly Pub 2</td>
+                  <td className="p-2.5">Coastal raptor / western osprey</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1557008075-7f2c5efa4cfd)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Raptor bird perched over coastline</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">News Newly Pub 3</td>
+                  <td className="p-2.5">Branching hard coral colonies</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1582967788606-a171c1080cb0)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Sunlit branching Acropora corals</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Watch Card 1</td>
+                  <td className="p-2.5">Dugong feeding on shallow Halodule meadow</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1583212292454-1fe6229603b7)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Marine sirenian feeding in shallow water</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Watch Card 2</td>
+                  <td className="p-2.5">Spinner dolphins pod in open lagoon</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1570498839593-e565b3d4f6ee)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Dolphin pod swimming together</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Watch Card 3</td>
+                  <td className="p-2.5">Green sea turtle cruising reef crest</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1437622368342-7a3d73a34c8f)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Sea turtle swimming over tropical benthos</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Explorer Card 1</td>
+                  <td className="p-2.5">Sanganeb Atoll oceanic pinnacle & shelf (Sudan)</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1516683037151-9a17603a8dc7)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Oceanic atoll reef wall and pelagic water</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Explorer Card 2</td>
+                  <td className="p-2.5">Aqaba Marine Reserve fringing reef (Jordan)</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1544552866-d3ed42536cfd)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Northern Gulf coral garden with high visibility</td>
+                </tr>
+                <tr>
+                  <td className="p-2.5 font-mono">Store Feature</td>
+                  <td className="p-2.5">Wadi Doum Palm Handwoven Field Basket</td>
+                  <td className="p-2.5 font-mono">Unsplash (photo-1595461135849-bf08893d45c0)</td>
+                  <td className="p-2.5">Unsplash License</td>
+                  <td className="p-2.5 text-muted">File description: Handwoven natural palm-fiber basket</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>4. Taxonomic & Conservation Authority Data</h2>
           <ul>
             <li>
               <strong>IUCN Red List of Threatened Species:</strong> Global extinction risk categorizations and regional population assessments.

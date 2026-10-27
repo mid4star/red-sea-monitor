@@ -104,6 +104,77 @@ export const DunesArt: React.FC<ArtProps> = ({
 );
 
 /**
+ * Marine Protected Area / Reserve Art
+ * Marine sanctuary scene with shallow reef crest, yellow boundary mooring buoy, and patrol boat
+ */
+export const MarineReserveArt: React.FC<ArtProps> = ({
+  className = 'w-full h-auto',
+  width = 400,
+  height = 260,
+  ariaLabel = 'Illustration of marine protected area with conservation buoy and patrol boat',
+}) => (
+  <svg
+    viewBox="0 0 400 260"
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    role="img"
+    aria-label={ariaLabel}
+  >
+    <rect width="400" height="260" fill="#FAF7F2" className="fill-paper-card dark:fill-deep-sea" />
+    
+    {/* Sky & Sun */}
+    <circle cx="280" cy="70" r="26" fill="#E4573D" opacity="0.8" />
+    
+    {/* Distant horizon coastline */}
+    <path
+      d="M0 130 L80 120 L180 132 L270 118 L340 128 L400 120 L400 145 L0 145 Z"
+      fill="#E3D3B4"
+      opacity="0.5"
+    />
+
+    {/* Sea base */}
+    <rect x="0" y="140" width="400" height="120" fill="#06303A" className="fill-sea-900" />
+    <path d="M0 148 Q 100 142, 200 148 T 400 148" stroke="#1B8CA0" strokeWidth="2" fill="none" opacity="0.8" />
+    <path d="M0 168 Q 100 162, 200 168 T 400 168" stroke="#D8EEF0" strokeWidth="1.5" fill="none" opacity="0.4" />
+    <path d="M0 195 Q 100 190, 200 195 T 400 195" stroke="#0B5566" strokeWidth="2" fill="none" />
+
+    {/* Distant ranger / patrol vessel silhouette */}
+    <g transform="translate(60, 126)">
+      <polygon points="10,12 35,12 38,18 5,18" fill="#0E1A1F" className="fill-ink dark:fill-paper" />
+      <rect x="16" y="6" width="12" height="6" fill="#0E1A1F" className="fill-ink dark:fill-paper" />
+      <line x1="22" y1="1" x2="22" y2="6" stroke="#0E1A1F" strokeWidth="1" className="stroke-ink dark:stroke-paper" />
+    </g>
+
+    {/* Mooring / Sanctuary Boundary Buoy (Foreground) */}
+    <g transform="translate(240, 135)">
+      {/* Submerged anchor line */}
+      <line x1="28" y1="50" x2="28" y2="120" stroke="#FAF7F2" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.5" />
+      
+      {/* Conical marker buoy body */}
+      <polygon points="28,10 14,50 42,50" fill="#E4573D" stroke="#0E1A1F" strokeWidth="1.5" />
+      <polygon points="28,26 21,46 35,46" fill="#FAF7F2" opacity="0.9" />
+      
+      {/* Top light beacon */}
+      <circle cx="28" cy="8" r="3.5" fill="#FAF7F2" stroke="#0E1A1F" strokeWidth="1" />
+      <path d="M28 2 L28 -2" stroke="#E4573D" strokeWidth="1.5" />
+      
+      {/* Water ripple collar around buoy */}
+      <ellipse cx="28" cy="50" rx="18" ry="4" fill="none" stroke="#D8EEF0" strokeWidth="1.5" opacity="0.8" />
+    </g>
+
+    {/* Submerged fringing reef crest silhouette */}
+    <path
+      d="M0 260 L0 220 Q 50 205, 120 225 T 260 215 T 400 230 L 400 260 Z"
+      fill="#0B5566"
+      opacity="0.85"
+    />
+  </svg>
+);
+
+/**
  * Wadi Art
  * Desert canyon / wadi with acacia tree silhouette
  */

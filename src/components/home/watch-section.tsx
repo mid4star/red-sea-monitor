@@ -27,6 +27,12 @@ function getIucnColor(status?: string): string {
   }
 }
 
+const DEFAULT_WATCH_IMAGES = [
+  'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1570498839593-e565b3d4f6ee?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=400&q=80',
+];
+
 export async function WatchSection() {
   const sightings = await getApprovedSightings({ limit: 3 });
 
@@ -39,11 +45,11 @@ export async function WatchSection() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
           index="02"
+          tone="dark"
           title="Red Sea Watch: Citizen Field Telemetry"
           subtitle="Real-time geo-located wildlife observations and environmental alerts from across the basin"
           href="/watch"
           actionText="View all sightings"
-          className="text-paper [&_h2]:text-paper [&_p]:text-paper/75"
         />
 
         {/* 2-Column Grid: Telemetry Cards (Left 7 cols) & Photo Sharing Card (Right 5 cols) */}
@@ -62,9 +68,10 @@ export async function WatchSection() {
 
             {/* Mobile horizontal scroll-snap / Desktop stack */}
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:pb-0 md:flex-col md:overflow-visible">
-              {sightings.map((stg) => {
+              {sightings.map((stg, idx) => {
                 const iucn = stg.species?.iucn_status || 'VU';
                 const iucnBorder = getIucnColor(iucn);
+                const photoSrc = (stg as any).photo_url || DEFAULT_WATCH_IMAGES[idx % DEFAULT_WATCH_IMAGES.length];
 
                 return (
                   <article
@@ -72,23 +79,34 @@ export async function WatchSection() {
                     className={`min-w-[82vw] sm:min-w-[340px] md:min-w-0 snap-center p-5 rounded-md bg-paper/5 backdrop-blur-sm border border-paper/15 border-l-4 ${iucnBorder} space-y-4 hover:border-paper/30 transition-all`}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="flex items-center gap-2 text-xs font-mono text-paper/70 mb-1">
-                          <CountryFlag iso2={stg.country_iso2} size="sm" showBadge />
-                          <span>•</span>
-                          <CoordinateTag lat={stg.lat_public} lng={stg.lng_public} />
+                      <div className="flex items-start gap-3.5">
+                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded shrink-0 overflow-hidden border border-paper/20">
+                          <Image
+                            src={photoSrc}
+                            alt={stg.reported_common_name}
+                            fill
+                            sizes="80px"
+                            className="object-cover"
+                          />
                         </div>
-                        <h4 className="font-serif text-lg font-bold text-paper leading-snug">
-                          {stg.reported_common_name}
-                        </h4>
-                        {stg.species?.scientific_name && (
-                          <p className="text-xs text-coral-300 font-sans mt-0.5">
-                            <SciName>{stg.species.scientific_name}</SciName>
-                            <span className="ml-2 font-mono text-[10px] bg-paper/15 px-1.5 py-0.2 rounded text-paper">
-                              IUCN: {iucn}
-                            </span>
-                          </p>
-                        )}
+                        <div>
+                          <div className="flex items-center gap-2 text-xs font-mono text-paper/70 mb-1">
+                            <CountryFlag iso2={stg.country_iso2} size="sm" showBadge />
+                            <span>•</span>
+                            <CoordinateTag lat={stg.lat_public} lng={stg.lng_public} tone="dark" />
+                          </div>
+                          <h4 className="font-serif text-lg font-bold text-paper leading-snug">
+                            {stg.reported_common_name}
+                          </h4>
+                          {stg.species?.scientific_name && (
+                            <p className="text-xs text-coral-300 font-sans mt-0.5">
+                              <SciName>{stg.species.scientific_name}</SciName>
+                              <span className="ml-2 font-mono text-[10px] bg-paper/15 px-1.5 py-0.2 rounded text-paper">
+                                IUCN: {iucn}
+                              </span>
+                            </p>
+                          )}
+                        </div>
                       </div>
 
                       <div className="shrink-0 text-right">
@@ -155,7 +173,7 @@ export async function WatchSection() {
                   Drop high-resolution image here or browse
                 </p>
                 <p className="text-[11px] text-paper/50 mt-1">
-                  RAW, JPG, PNG up to 25MB · EXIF coordinates preserved
+                  RAW, JPG, PNG up to 25MB · Location data is removed from public images. Exact coordinates stay private and are used for verification only.
                 </p>
               </div>
 
@@ -192,17 +210,29 @@ export async function WatchSection() {
                 </select>
               </div>
 
-              {/* Open Science Consent */}
-              <div className="flex items-start gap-2 pt-1 text-paper/80 text-[11px]">
-                <input
-                  type="checkbox"
-                  id="consent-open-access"
-                  defaultChecked
-                  className="rounded border-paper/30 bg-paper/10 text-coral-500 focus:ring-coral-500 mt-0.5"
-                />
-                <label htmlFor="consent-open-access" className="leading-snug">
-                  I agree to publish this record under CC BY-SA 4.0 for open-access marine science research.
-                </label>
+              {/* Split Consent Checkboxes (Unticked by default) */}
+              <div className="space-y-2 pt-1 text-paper/80 text-[11px]">
+                <div className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    id="consent-publish"
+                    required
+                    className="rounded border-paper/30 bg-paper/10 text-coral-500 focus:ring-coral-500 mt-0.5"
+                  />
+                  <label htmlFor="consent-publish" className="leading-snug">
+                    I allow Red Sea Monitor to publish this photo with credit <span className="text-coral-400">*</span>
+                  </label>
+                </div>
+                <div className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    id="consent-ccby"
+                    className="rounded border-paper/30 bg-paper/10 text-coral-500 focus:ring-coral-500 mt-0.5"
+                  />
+                  <label htmlFor="consent-ccby" className="leading-snug text-paper/60">
+                    I also allow reuse under CC BY-SA 4.0 for open research (optional)
+                  </label>
+                </div>
               </div>
 
               {/* Submit CTA */}

@@ -22,7 +22,7 @@ const TICKER_ITEMS: TickerItem[] = [
   {
     id: 't-2',
     country: 'SD',
-    text: 'Winter thermal monitoring records 24.8°C reef minimum at central transect, Sanganeb Atoll',
+    text: 'Winter thermal monitoring records seasonal baseline transect, Sanganeb Atoll',
     isSample: true,
   },
   {

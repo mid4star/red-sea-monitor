@@ -51,80 +51,80 @@ export async function StoreSection() {
         {/* 2-Column Grid: Maker Story (Left 7 cols) & Craft Showcase / Coming Soon (Right 5 cols) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           {/* Left Column: Featured Maker Story */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-md bg-paper dark:bg-deep-sea border border-rule flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-md bg-paper dark:bg-deep-sea border border-rule flex flex-col justify-between space-y-6 h-full">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1 text-[11px] font-mono uppercase tracking-wider text-sand-600 dark:text-sand-300 font-bold">
                   <Hammer className="w-3.5 h-3.5" />
-                  <span>Master Artisan Profile</span>
+                  <span>Artisanal Profile (Sample)</span>
                 </span>
-                <span className="text-xs font-mono text-muted">
-                  {featuredMaker?.place_of_origin || 'Southern Basin Coast'}
+                <span className="text-xs font-mono text-muted bg-sand-300/20 dark:bg-sea-900/40 px-2 py-0.5 rounded">
+                  SAMPLE
                 </span>
               </div>
 
               <div>
                 <h3 className="font-serif text-2xl font-bold text-ink dark:text-paper leading-tight">
-                  {featuredMaker?.name || 'Fatima Al-Abadi & The Shalatin Palm Guild'}
+                  Sample Coastal Palm Craft Collective
                 </h3>
                 <p className="text-sm font-sans text-muted leading-relaxed mt-2">
-                  {typeof featuredMaker?.story === 'object'
-                    ? (featuredMaker?.story as any).bio
-                    : 'Transforming wild Doum palm fronds harvested sustainably from seasonal wadi beds into tight-weave traditional storage vessels and camel saddles.'}
+                  A demo craft collective profile illustrating vernacular palm-frond weaving techniques. Across Red Sea coastal wadis, Doum palm (Hyphaene thebaica) fronds have historically been harvested to braid resilient specimen baskets, bread coolers, and water-carrying vessels.
                 </p>
               </div>
 
-              <div className="p-4 rounded bg-sand-100 dark:bg-sea-900/30 border border-rule text-xs font-sans space-y-1">
+              <div className="p-4 rounded bg-sand-100/60 dark:bg-sea-900/30 border border-rule text-xs font-sans space-y-1.5">
                 <div className="font-semibold text-ink dark:text-paper flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-sand-600" />
-                  <span>Heritage Technique & Conservation:</span>
+                  <span>Heritage Technique & Botanical Material:</span>
                 </div>
                 <p className="text-muted leading-relaxed">
-                  {typeof featuredMaker?.story === 'object'
-                    ? (featuredMaker?.story as any).technique
-                    : 'Hand-twining with vegetable-tanned stringing, bleached solely by the desert sun without chemical waxes.'}
+                  Traditional hand-twining with unbleached natural bast fibres, dried under coastal sunlight without chemical varnishes or synthetic coatings.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-rule flex items-center justify-between">
-              <span className="text-xs font-sans text-muted">100% of proceeds support coastal artisan cooperatives</span>
+            <div className="pt-4 border-t border-rule flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-muted">
+              <span>Ethical heritage documentation prototype</span>
               <Link
                 href="/store"
                 className="text-coral-600 dark:text-coral-400 hover:underline flex items-center gap-1 text-xs font-medium font-sans group"
               >
-                <span>Read maker monograph</span>
+                <span>View crafts archive</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
           </div>
 
           {/* Right Column: Craft Product Preview & Coming Soon Notify Card */}
-          <div className="lg:col-span-5 p-6 sm:p-8 rounded-md bg-paper dark:bg-deep-sea border border-rule flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 p-6 sm:p-8 rounded-md bg-paper dark:bg-deep-sea border border-rule flex flex-col justify-between space-y-6 h-full">
             <div className="space-y-4">
-              <div className="relative aspect-[3/2] w-full rounded overflow-hidden border border-rule">
-                {featuredProduct?.images?.[0] ? (
-                  <Image
-                    src={featuredProduct.images[0]}
-                    alt={featuredProduct.title}
-                    fill
-                    sizes="400px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <CraftTextileArt className="w-full h-full object-cover" />
-                )}
+              <div className="relative aspect-[3/2] w-full rounded overflow-hidden border border-rule bg-sand-300/10">
+                <Image
+                  src="https://images.unsplash.com/photo-1595461135849-bf08893d45c0?auto=format&fit=crop&w=800&q=80"
+                  alt="Handwoven natural palm fiber basket crafted by traditional methods"
+                  fill
+                  sizes="400px"
+                  className="object-cover"
+                />
                 <div className="absolute top-3 right-3 bg-sea-900/90 text-paper text-[10px] font-mono px-2 py-0.5 rounded border border-white/20">
                   Coming Soon
+                </div>
+                <div className="absolute bottom-2 left-2 bg-sea-900/80 text-paper text-[9px] font-mono px-1.5 py-0.5 rounded">
+                  Photo: Woven palm basket (Unsplash)
                 </div>
               </div>
 
               <div className="space-y-1">
-                <h4 className="font-serif text-lg font-bold text-ink dark:text-paper leading-snug">
-                  {featuredProduct?.title || 'Hand-Twined Doum Palm Bread Basket'}
-                </h4>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono bg-coral-500/10 text-coral-600 dark:text-coral-400 border border-coral-500/20 px-1.5 py-0.2 rounded font-semibold">
+                    SAMPLE
+                  </span>
+                  <h4 className="font-serif text-lg font-bold text-ink dark:text-paper leading-snug">
+                    Wadi Doum Palm Handwoven Field Basket
+                  </h4>
+                </div>
                 <p className="text-xs text-muted font-sans leading-relaxed">
-                  Limited seasonal edition crafted with natural mineral-dyed acacia fibers. Each piece is stamped with the guild artisan mark.
+                  Traditional breathable utility basket braided from sun-cured wild palm fronds with vegetable-tanned handles.
                 </p>
               </div>
             </div>

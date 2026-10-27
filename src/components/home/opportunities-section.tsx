@@ -25,7 +25,7 @@ const FEATURED_OPPORTUNITIES: OpportunityCardData[] = [
     kindLabel: 'Research Grant',
     kindIcon: Award,
     title: 'Coral Thermal Refugia Early-Career Research Grant',
-    organization: 'Red Sea Marine Conservation Initiative',
+    organization: 'Sample Regional Marine Initiative',
     location: 'Regional Basin (Gulf of Aqaba & Northern Red Sea)',
     deadlineDaysLeft: 12,
     deadlineFormatted: 'Nov 8, 2026',
@@ -37,11 +37,11 @@ const FEATURED_OPPORTUNITIES: OpportunityCardData[] = [
     kindLabel: 'Training Fellowship',
     kindIcon: GraduationCap,
     title: 'Marine Protected Area Field Training Fellowship',
-    organization: 'PERSGA Regional Secretariat',
+    organization: 'Sample Protected Areas Secretariat',
     location: 'Port Sudan & Sanganeb Marine Park',
     deadlineDaysLeft: 28,
     deadlineFormatted: 'Nov 24, 2026',
-    summary: 'Four-month intensive practical residency on coral reef transect methodologies, benthos photogrammetry, and telemetry.',
+    summary: 'Practical residency focusing on coral reef transect methodologies, benthos photogrammetry, and telemetry.',
     href: '/opportunities/opp-fellowship-mpa-port-sudan',
   },
   {
@@ -49,11 +49,11 @@ const FEATURED_OPPORTUNITIES: OpportunityCardData[] = [
     kindLabel: 'Call for Proposals',
     kindIcon: Megaphone,
     title: 'Regional Reef Soundscape Acoustic Recording Call',
-    organization: 'Rift Basin Ocean Acoustics Lab',
+    organization: 'Sample Ocean Acoustics Project',
     location: 'Farasan Archipelago & Dahlak Shelf',
     deadlineDaysLeft: 41,
     deadlineFormatted: 'Dec 7, 2026',
-    summary: 'Submissions for hydrophone baseline audio datasets characterizing twilight fish choruses and artisanal motorboat noise.',
+    summary: 'Submissions for hydrophone baseline audio datasets characterizing twilight fish choruses and artisanal vessel acoustic profiles.',
     href: '/opportunities/opp-call-soundscapes',
   },
 ];
@@ -68,11 +68,11 @@ export async function OpportunitiesSection() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
           index="05"
+          tone="dark"
           title="Red Sea Opportunities & Fieldwork"
           subtitle="Grants, fellowships, field training, and civic science calls across all 7 littoral states"
           href="/opportunities"
           actionText="View all opportunities"
-          className="text-paper [&_h2]:text-paper [&_p]:text-paper/75"
         />
 
         {/* 3 Opportunity Cards: Mobile horizontal scroll-snap / Desktop 3-col grid */}
@@ -86,10 +86,15 @@ export async function OpportunitiesSection() {
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-coral-400 font-semibold uppercase">
-                      <Icon className="w-3.5 h-3.5" />
-                      <span>{opp.kindLabel}</span>
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-mono text-coral-400 font-semibold uppercase">
+                        <Icon className="w-3.5 h-3.5" />
+                        <span>{opp.kindLabel}</span>
+                      </span>
+                      <span className="text-[10px] font-mono bg-paper/20 px-1.5 py-0.2 rounded text-paper">
+                        SAMPLE
+                      </span>
+                    </div>
                     {/* Deadline Stub */}
                     <span className="inline-flex items-center gap-1 text-xs font-mono font-bold px-2 py-0.5 rounded bg-coral-500/20 text-coral-300 border border-coral-500/30">
                       <Calendar className="w-3 h-3" />

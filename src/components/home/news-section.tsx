@@ -9,6 +9,17 @@ import { SampleBadge } from '@/components/ui/sample-badge';
 import { getArticles } from '@/server/queries/articles';
 import { getCuratedHeadlines } from '@/server/queries/headlines';
 
+const DEFAULT_SECONDARY_IMAGES = [
+  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=400&q=80',
+];
+
+const DEFAULT_NEWLY_PUBLISHED_IMAGES = [
+  'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=400&q=80',
+];
+
 export async function NewsSection() {
   const { articles } = await getArticles({ limit: 6 });
   const headlines = await getCuratedHeadlines(5);
@@ -42,7 +53,7 @@ export async function NewsSection() {
                 slug={leadStory.slug}
                 title={leadStory.title}
                 dek={leadStory.dek || leadStory.excerpt}
-                coverUrl={leadStory.cover_image_url || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80'}
+                coverUrl={leadStory.cover_image_url || (leadStory as any).cover_media_url || 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80'}
                 type={leadStory.type || 'FEATURE'}
                 publishedAt={leadStory.published_at?.toISOString() || new Date().toISOString()}
                 readingMinutes={leadStory.reading_time_minutes || 6}
@@ -55,14 +66,14 @@ export async function NewsSection() {
           {/* Secondary Column: 2 Stacked Stories + 1 Pull-Quote Card (5 cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-6">
             <div className="space-y-6">
-              {secondaryStories.map((story) => (
+              {secondaryStories.map((story, idx) => (
                 <article
                   key={story.id}
                   className="group flex flex-col sm:flex-row gap-4 p-4 rounded-md border border-rule bg-paper-card dark:bg-paper-elevated/40 hover:border-coral-500/50 transition-colors"
                 >
                   <div className="relative w-full sm:w-28 h-28 shrink-0 overflow-hidden rounded border border-rule/50">
                     <Image
-                      src={story.cover_image_url || 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=400&q=80'}
+                      src={story.cover_image_url || (story as any).cover_media_url || DEFAULT_SECONDARY_IMAGES[idx % DEFAULT_SECONDARY_IMAGES.length]}
                       alt={story.title}
                       fill
                       sizes="120px"
@@ -90,19 +101,30 @@ export async function NewsSection() {
               ))}
             </div>
 
-            {/* Editorial Pull-Quote Card */}
+            {/* Editorial Statement Card (In Platform's Own Voice) */}
             <div className="relative p-6 rounded-md bg-sea-900 text-paper border border-sea-700/60 shadow-sm space-y-3">
-              <Quote className="w-6 h-6 text-coral-400 opacity-80" />
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-coral-400 font-semibold flex items-center gap-1.5">
+                  <Quote className="w-3.5 h-3.5" />
+                  <span>Editorial Field Charter</span>
+                </span>
+                <span className="text-[10px] font-mono bg-paper/20 px-2 py-0.5 rounded text-paper">
+                  EDITORIAL
+                </span>
+              </div>
               <blockquote className="font-serif italic text-sm md:text-base leading-relaxed text-paper/95">
-                &ldquo;The Red Sea rift is not merely a maritime conduit; it is an evolutionary cradle where endemic corals withstand temperatures that bleach oceans globally.&rdquo;
+                &ldquo;The Red Sea rift represents an invaluable natural laboratory for marine science. Across all seven coastal nations, documenting thermal resilience, endemic biodiversity, and vernacular maritime knowledge remains our central editorial commitment.&rdquo;
               </blockquote>
               <div className="pt-2 border-t border-paper/15 flex items-center justify-between text-xs font-sans">
                 <span className="text-paper/75">
-                  Prof. Maoz Fine & Dr. J. Veron, <span className="italic">Red Sea Thermal Refugia Survey</span>
+                  Red Sea Monitor Editorial Desk
                 </span>
-                <span className="text-[10px] font-mono bg-paper/20 px-1.5 py-0.5 rounded text-paper">
-                  SAMPLE
-                </span>
+                <Link
+                  href="/editorial-policy"
+                  className="text-coral-400 hover:text-coral-300 font-mono text-[11px] hover:underline"
+                >
+                  Standards & Sources →
+                </Link>
               </div>
             </div>
           </div>
@@ -116,14 +138,14 @@ export async function NewsSection() {
               <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-muted">
                 Latest Basin Headlines
               </h4>
-              <SampleBadge />
+              <span className="text-[11px] font-mono text-muted">Curated Feeds</span>
             </div>
 
             <ul className="space-y-3">
               {headlines.map((item) => (
                 <li
                   key={item.id}
-                  className="pb-3 border-b border-rule/50 last:border-b-0 space-y-1"
+                  className="pb-3 border-b border-rule/50 last:border-b-0 space-y-1.5"
                 >
                   <a
                     href={item.url}
@@ -134,7 +156,10 @@ export async function NewsSection() {
                     <span>{item.title}</span>
                     <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-40 group-hover:opacity-100 group-hover:text-coral-500 transition-opacity mt-0.5" />
                   </a>
-                  <div className="flex items-center gap-2 text-[11px] font-mono text-muted">
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-muted">
+                    <span className="bg-coral-500/10 text-coral-600 dark:text-coral-400 border border-coral-500/20 text-[10px] px-1.5 py-0.2 rounded font-semibold">
+                      SAMPLE
+                    </span>
                     <span>{item.publisher}</span>
                     <span>•</span>
                     <time dateTime={item.published_on.toISOString()}>
@@ -153,7 +178,7 @@ export async function NewsSection() {
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {newlyPublished.map((story) => (
+              {newlyPublished.map((story, idx) => (
                 <Link
                   key={story.id}
                   href={`/news/${story.slug}`}
@@ -162,7 +187,7 @@ export async function NewsSection() {
                   <div className="space-y-2">
                     <div className="relative aspect-[3/2] w-full rounded overflow-hidden border border-rule/50">
                       <Image
-                        src={story.cover_image_url || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=80'}
+                        src={story.cover_image_url || (story as any).cover_media_url || DEFAULT_NEWLY_PUBLISHED_IMAGES[idx % DEFAULT_NEWLY_PUBLISHED_IMAGES.length]}
                         alt={story.title}
                         fill
                         sizes="240px"

@@ -4,6 +4,7 @@ import { BookOpen, FileText, Compass, Anchor, ArrowUpRight, Download, CheckCircl
 import { SectionHeader } from '@/components/ui/section-header';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { formatApaCitation } from '@/lib/citation';
 import { getLibraryItems } from '@/server/queries/library';
 
 interface LibraryCategory {
@@ -107,17 +108,23 @@ export async function LibrarySection() {
         {featured && (
           <div className="p-6 md:p-8 rounded-md bg-paper-card dark:bg-paper-elevated/50 border border-rule space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="neutral">Featured Milestone Citation</Badge>
+                {featured.verified_via && (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-sea-700 dark:text-sea-300 bg-sea-100 dark:bg-sea-900/60 border border-sea-500/30 px-2 py-0.5 rounded">
+                    <CheckCircle className="w-3 h-3 text-sea-600 dark:text-sea-400" />
+                    <span>Verified Metadata ({featured.verified_via})</span>
+                  </span>
+                )}
                 {featured.is_open_access && (
                   <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
                     <CheckCircle className="w-3 h-3" />
-                    <span>Open Access Science</span>
+                    <span>Open Access</span>
                   </span>
                 )}
               </div>
               <span className="text-xs font-mono text-muted">
-                DOI: {featured.doi || '10.1111/gcb.12198'}
+                DOI: {featured.doi || 'Not assigned'}
               </span>
             </div>
 
@@ -139,22 +146,34 @@ export async function LibrarySection() {
                 <div className="flex items-center justify-between text-muted text-[11px] pb-2 border-b border-rule">
                   <span className="flex items-center gap-1 font-semibold uppercase">
                     <FileCode className="w-3.5 h-3.5" />
-                    <span>APA Citation Ready</span>
+                    <span>APA Citation (System Generated)</span>
                   </span>
                 </div>
                 <p className="text-[11px] leading-relaxed text-ink/90 dark:text-paper/90 select-all">
-                  {featured.citation_apa || `${featured.authors_text} (${featured.year}). ${featured.title}. ${featured.publisher}.`}
+                  {formatApaCitation(featured)}
                 </p>
                 <div className="pt-2 flex items-center justify-between">
-                  <a
-                    href={featured.external_url || `https://doi.org/${featured.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-coral-600 dark:text-coral-400 hover:underline flex items-center gap-1 font-sans text-xs font-medium"
-                  >
-                    <span>Read via Publisher</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
+                  {featured.doi ? (
+                    <a
+                      href={`https://doi.org/${featured.doi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-coral-600 dark:text-coral-400 hover:underline flex items-center gap-1 font-sans text-xs font-medium"
+                    >
+                      <span>Read via Publisher</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  ) : featured.external_url ? (
+                    <a
+                      href={featured.external_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-coral-600 dark:text-coral-400 hover:underline flex items-center gap-1 font-sans text-xs font-medium"
+                    >
+                      <span>External Archive</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </div>

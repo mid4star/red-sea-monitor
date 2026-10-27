@@ -16,7 +16,7 @@ export const SampleBadge: React.FC<SampleBadgeProps> = ({
     <span
       className={twMerge(
         clsx(
-          'inline-flex items-center gap-1 font-mono text-[10px] tracking-wider uppercase font-semibold text-sand-600 dark:text-sand-300 bg-sand-300/30 dark:bg-sand-600/20 px-2 py-0.5 rounded-sm border border-sand-600/40 select-none',
+          'inline-flex items-center gap-1.5 font-mono text-xs tracking-wider uppercase font-semibold text-sand-600 dark:text-sand-300 bg-sand-300/30 dark:bg-sand-600/20 px-2 py-0.5 rounded-sm border border-sand-600/40 select-none',
           className
         )
       )}

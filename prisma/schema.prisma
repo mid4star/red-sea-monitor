@@ -941,3 +941,16 @@ model Redirect {
 
   @@map("redirects")
 }
+
+model Quote {
+  id           String   @id @default(cuid())
+  text         String
+  speaker_name String
+  speaker_role String
+  source_url   String?
+  is_demo      Boolean  @default(false)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@map("quotes")
+}

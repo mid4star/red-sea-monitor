@@ -293,25 +293,26 @@ export function SightingForm() {
           />
         </div>
 
-        <div className="space-y-2 pt-2">
+        <div className="space-y-2.5 pt-2">
           <label className="flex items-start gap-2.5 text-xs text-stone-700 dark:text-stone-300 cursor-pointer">
             <input
               type="checkbox"
+              required
               checked={formData.consent_publish}
               onChange={(e) => setFormData({ ...formData, consent_publish: e.target.checked })}
               className="mt-0.5 h-4 w-4 rounded border-stone-300 text-primary"
             />
-            <span>I consent to publishing this anonymized sighting record in the Red Sea Watch open research dataset.</span>
+            <span>I allow Red Sea Monitor to publish this photo and observation record with credit. (Required)</span>
           </label>
 
-          <label className="flex items-start gap-2.5 text-xs text-stone-700 dark:text-stone-300 cursor-pointer">
+          <label className="flex items-start gap-2.5 text-xs text-stone-600 dark:text-stone-400 cursor-pointer">
             <input
               type="checkbox"
               checked={formData.consent_data_share}
               onChange={(e) => setFormData({ ...formData, consent_data_share: e.target.checked })}
               className="mt-0.5 h-4 w-4 rounded border-stone-300 text-primary"
             />
-            <span>I authorize sharing this observation with the National Institute of Oceanography and Fisheries (NIOF) and EEAA conservation scientists.</span>
+            <span>I also allow reuse under CC BY-SA 4.0 for open marine science research and regional conservation archives. (Optional)</span>
           </label>
         </div>
       </div>

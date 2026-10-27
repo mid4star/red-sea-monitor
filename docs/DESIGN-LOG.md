@@ -334,3 +334,51 @@ Created flat, textured SVG illustrations under `src/components/art/illustrations
 - `pnpm exec next build`: PASSED (Exit code 0, all static pages generated).
 - Public country display: Israel strictly excluded per user mandate; 7 published littoral states + 1 partner.
 
+---
+
+## Log Entry 14 — PATCH PROMPT v4: Credibility, Country Scope, Visual Contrast, Unique Imagery & Basin Map
+**Date:** 2026-10-27  
+**Scope:** Complete implementation of Patch Prompt v4 (Parts 1 through 6)  
+**Status:** 100% Implemented, Verified & Built  
+
+### 1. Part 1: Credibility Fixes
+- **1.1 Fabricated Quotes:** Removed unverified quote attributed to real researchers from `news-section.tsx`. Replaced with an editorial field charter in the platform's own voice. Added `Quote` schema model, `SEED_QUOTES` in `src/lib/seed-data.ts`, and query validator `src/server/queries/quotes.ts` barring real names on demo quotes and enforcing `source_url` on non-demo quotes.
+- **1.2 Library Milestone Citation:** Corrected landmark paper citation to verified record: Fine, M., Gildor, H., & Genin, A. (2013), *A coral reef refuge in the Red Sea*, Global Change Biology 19(12):3640–3647, DOI: `10.1111/gcb.12356`. Built dynamic APA & BibTeX citation generators in `src/lib/citation.ts` and automated Crossref DOI verification helper `src/lib/crossref.ts`.
+- **1.3 Real Institutions in Sample Content:** Replaced real institutions in headlines, ticker, and opportunities with neutral fictional bodies ("Sample Marine Field Station", "Demo Wildlife Survey Group"). Attached individual visible `SAMPLE` badges to every headline, ticker item, and opportunity. Changed hero card title to "Hawksbill Turtle Foraging".
+- **1.4 Store Section:** Replaced red luxury handbag photo with authentic licensed palm-fiber basket photo (`photo-1595461135849-bf08893d45c0`). Replaced artisan claims with fictional `Sample Coastal Palm Craft Collective`. Kept Store in coming-soon mode with vertically balanced columns.
+- **1.5 Contribution Form & Consent:** Changed privacy copy to: *"Location data is removed from public images. Exact coordinates stay private and are used for verification only."* Split consent checkbox into two unticked-by-default checkboxes in both `watch-section.tsx` and `sighting-form.tsx`.
+
+### 2. Part 2: Country Scope — Strictly 7 Coastal Countries
+- Excluded Israel completely from database seed, UI, routes, sitemaps, JSON-LD, and metadata per user mandate.
+- Removed `/countries/il` route (returns 404 via Next.js `notFound()`).
+- Updated hero stat counter from "Sovereign States" to "Coastal Countries" (7).
+- Created automated test `scripts/check-country-scope.mjs` (`pnpm run check:scope`) to enforce 0 occurrences of forbidden entities in published content.
+- Documented governance rule in `docs/ASSUMPTIONS.md`.
+
+### 3. Part 3: Visual Contrast & Token Hardening
+- **3.1 High Contrast on Dark Bands:** Added `tone="dark"` prop to `SectionHeader` and `CoordinateTag` to render high-contrast paper, coral-300, and border tokens on dark bands (`--sea-900`).
+- **3.2 Header Opacity:** Hardened `SiteHeader` to solid opaque paper background (`bg-paper dark:bg-deep-sea shadow-sm border-b border-rule`).
+- **3.3 Empty Chip Labels:** Fixed selected state styling in `basin-map.tsx`: both `[{hs.iso2}]` (`text-coral-300`) and `{hs.name}` (`text-paper`) are prominently styled with high contrast. Added `aria-pressed`, `aria-label`, and automated unit test `scripts/check-chips-and-labels.mjs` (`pnpm run check:chips`).
+- **3.4 Smaller Visual Issues:** Replaced desert illustration on Marine Protected Areas tile in Explorer with `MarineReserveArt`. Labeled Dugong card with explicit "Illustration" badge. Increased `SampleBadge` size to `text-xs` (12px). Normalized section and wave divider paddings.
+
+### 4. Part 4: Images — No Repeats, Always Matching
+- Assigned 14 distinct, verified, licensed images across Home (Hero background, Hero card, News lead, 2 secondary stories, 3 newly published stories, 3 watch cards, 2 explorer cards, 1 store basket).
+- Built automated test `scripts/check-no-duplicate-images.mjs` (`pnpm run check:images`) which validates that 0 duplicate images exist on Home.
+- Documented complete inventory of all 14 images with source, license, and `match_note` on the `/credits` page.
+
+### 5. Part 5: Basin Map Production Quality
+- Vector bathymetry map derived from Natural Earth physical coastline geometry for the Red Sea rift basin.
+- Soft coastal labels for all 7 coastal countries with text size ≥ 12px and high-contrast text halo (`paint-order: stroke fill`).
+- Pins include hover/tap tooltips, active pulsing indicator, keyboard navigation (`role="button"`, `tabIndex={0}`, Enter/Space key handler), and click-to-inspect card.
+- Equal-height 60/40 desktop split: map canvas and inspector panel match height, with scrollable hotspot list and a 4-part mini legend.
+- Mobile layout: responsive stack with horizontal scroll chips and accessible `<details>` table fallback.
+
+### 6. Part 6: QA Audits & Single Test Suite
+- Automated test suite (`pnpm test`):
+  1. `check:generic` — Zero Egypt-only generic copy (PASSED)
+  2. `check:scope` — Exactly 7 coastal countries, zero forbidden entities (PASSED)
+  3. `check:images` — Exactly 14 unique images on Home, 0 duplicates (PASSED)
+  4. `check:chips` — 100% accessible non-empty chip labels (PASSED)
+  5. `check:integrity` — Milestone DOI 10.1111/gcb.12356, verified quotes, consistent country counts (PASSED)
+
+

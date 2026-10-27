@@ -47,7 +47,10 @@ This document records architectural, design, and environment assumptions made du
   7. Djibouti (`DJ`): `is_littoral: true, is_published: true, status: 'ACTIVE'` (Editorial note: Flanks Bab-el-Mandeb and Gulf of Tadjoura)
 - **Regional Partners (1 baseline):**
   8. Somalia (`SO`): `is_littoral: false, is_published: false, status: 'COMING_SOON'` (Editorial note: Gulf of Aden partner coastline outside the central rift)
-- **Flagged Editorial Decision for Site Owner:**
-  - Israel (`IL`): Configured in data schema as `is_littoral: true, is_published: false, status: 'DISABLED'`. Per explicit user directive ("إلا اسرائيل لا تقم باضافتها"), Israel is excluded from public UI filters, dropdowns, map hotspots, and sitemaps. It remains switchable via database administration whenever the owner decides.
+- **Country Scope Mandate (Owner Directive):**
+  - Country scope set by the platform owner; changes require an admin decision.
+  - The platform strictly covers seven coastal countries: Egypt, Sudan, Eritrea, Djibouti, Yemen, Saudi Arabia, and Jordan.
+  - Somalia appears only as an optional Gulf of Aden partner (not counted in coastal totals, hidden unless `show_partners = true`).
+  - Israel is completely deleted and excluded from all country rows, datasets, marine-region links, places, sightings, headlines, opportunities, volunteer programmes, organizations, routes, navigation, maps, and sitemaps. Route `/countries/il` returns 404.
 - **Single Source of Truth:**
-  - `src/lib/basin-stats.ts` dynamically derives the active littoral state count (`COUNT(is_littoral AND is_published) = 7`) and provides provenance sources (PERSGA, UNEP-WCMC, WDPA, IHO) for every figure.
+  - `src/lib/basin-stats.ts` dynamically derives the active littoral state count (`COUNT(is_littoral AND is_published) = 7`) and provides provenance sources (PERSGA, UNEP-WCMC, WDPA, IHO) for every figure. Counts agree consistently across hero stats, basin stat cards, country chips, and footer lists.

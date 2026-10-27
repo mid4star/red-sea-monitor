@@ -7,6 +7,11 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "check:generic": "node scripts/check-no-egypt-generic.mjs",
+    "check:scope": "node scripts/check-country-scope.mjs",
+    "check:images": "node scripts/check-no-duplicate-images.mjs",
+    "check:chips": "node scripts/check-chips-and-labels.mjs",
+    "check:integrity": "node scripts/check-integrity-and-citations.mjs",
+    "test": "node scripts/check-no-egypt-generic.mjs && node scripts/check-country-scope.mjs && node scripts/check-no-duplicate-images.mjs && node scripts/check-chips-and-labels.mjs && node scripts/check-integrity-and-citations.mjs",
     "start": "next start -p 3000",
     "lint": "next lint"
   },

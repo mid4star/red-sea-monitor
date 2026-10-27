@@ -85,7 +85,7 @@ export async function HeroSection() {
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="font-semibold text-paper text-sm">{stats.littoral_states}</span>
-                <span>Active Sovereign States</span>
+                <span>Coastal Countries</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-paper/40">•</span>
@@ -126,10 +126,10 @@ export async function HeroSection() {
                   <span>• Straits of Tiran</span>
                 </div>
                 <h2 className="font-serif text-lg font-bold text-paper leading-snug">
-                  Hawksbill Sea Turtle Grazing
+                  Hawksbill Turtle Foraging
                 </h2>
                 <p className="text-xs text-paper/70 font-sans">
-                  Taxon: <SciName className="text-coral-300">Eretmochelys imbricata</SciName> · IUCN Critically Endangered (CR). Logged at 14m on Jackson Reef reef crest.
+                  Taxon: <SciName className="text-coral-300">Eretmochelys imbricata</SciName> · IUCN Critically Endangered (CR). Logged at 14m foraging on reef wall sponges along Jackson Reef.
                 </p>
               </div>
 

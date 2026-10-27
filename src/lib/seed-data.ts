@@ -137,22 +137,6 @@ export const SEED_COUNTRIES = [
     is_published: false,
     editorial_note: 'Gulf of Aden partner coastline outside the central rift.',
   },
-  {
-    id: 'ctry-il',
-    iso2: 'IL',
-    slug: 'israel',
-    name: 'Israel',
-    native_name: 'ישראל',
-    flag_emoji: '🇮🇱',
-    latitude: 29.55,
-    longitude: 34.95,
-    coast_length_km: 14,
-    summary: 'Gulf of Aqaba northern coastline.',
-    status: 'DISABLED',
-    is_littoral: true,
-    is_published: false,
-    editorial_note: 'Excluded from public display per explicit platform directive; switchable via database administration.',
-  },
 ];
 
 // ==============================================================================
@@ -222,6 +206,8 @@ export const SEED_ARTICLES: any[] = [
     slug: 'coral-resilience-gulf-aqaba-super-reefs',
     title: 'Inside the Thermal Refugia: Why Northern Red Sea Corals Resist Global Bleaching',
     dek: 'While global reef systems endure catastrophic bleaching events, scientific surveys between Ras Mohammed and the Straits of Tiran show historic thermo-tolerance. Researchers are decoding their genetic evolutionary advantage.',
+    cover_image_url: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80',
+    cover_media_url: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80',
     type: 'FEATURE',
     status: 'PUBLISHED',
     published_at: new Date('2026-10-24T09:00:00Z'),
@@ -319,6 +305,8 @@ export const SEED_ARTICLES: any[] = [
     slug: 'dugong-population-surveys-wadi-el-gemal',
     title: 'Acoustic Tracking Confirms Resilient Dugong Grazing Corridors in Hamata',
     dek: 'Hydrophone arrays positioned in sheltered seagrass meadows reveal persistent foraging behaviors among resident dugong populations.',
+    cover_image_url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
+    cover_media_url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
     type: 'FIELD_NOTE',
     status: 'PUBLISHED',
     published_at: new Date('2026-10-22T14:30:00Z'),
@@ -377,6 +365,8 @@ export const SEED_ARTICLES: any[] = [
     slug: 'artisanal-ababbda-fisheries-eastern-desert',
     title: 'Wadi El Gemal: Oral Histories of the Ababda Maritime Wayfarers',
     dek: 'Documenting indigenous navigation, seasonal winds, and sustainable net-casting traditions before modern port expansion.',
+    cover_image_url: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80',
+    cover_media_url: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=80',
     type: 'INTERVIEW',
     status: 'PUBLISHED',
     published_at: new Date('2026-10-18T11:15:00Z'),
@@ -435,6 +425,8 @@ export const SEED_ARTICLES: any[] = [
     slug: 'microplastics-assessment-red-sea-currents',
     title: 'Hydrodynamic Gyres and Floating Polymer Density in the Northern Red Sea',
     dek: 'A joint survey by NIOF quantifies microplastic concentrations along surface oceanic fronts.',
+    cover_image_url: 'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&w=600&q=80',
+    cover_media_url: 'https://images.unsplash.com/photo-1682687220063-4742bd7fd538?auto=format&fit=crop&w=600&q=80',
     type: 'NEWS',
     status: 'PUBLISHED',
     published_at: new Date('2026-10-12T08:00:00Z'),
@@ -488,6 +480,8 @@ export const SEED_ARTICLES: any[] = [
     slug: 'sharks-elphinstone-behavioral-changes-tourism',
     title: 'Oceanic Whitetip Shark Residency and Diver Proximity at Elphinstone',
     dek: 'Telemetry data shows altered vertical migration patterns when dive vessel traffic peaks at midday.',
+    cover_image_url: 'https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?auto=format&fit=crop&w=600&q=80',
+    cover_media_url: 'https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?auto=format&fit=crop&w=600&q=80',
     type: 'EXPLAINER',
     status: 'PUBLISHED',
     published_at: new Date('2026-10-05T16:00:00Z'),
@@ -544,6 +538,8 @@ export const SEED_ARTICLES: any[] = [
     slug: 'sudan-sanganeb-atoll-acoustic-shark-monitoring',
     title: 'Telemetry at Sanganeb: Long-Term Grey Reef Shark Site Fidelity in the Central Red Sea',
     dek: 'Over eight years of acoustic receiver array monitoring at Sanganeb Atoll confirms that adult grey reef sharks display year-round philopatry, relying on steep drop-off thermoclines during midday hours.',
+    cover_image_url: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=600&q=80',
+    cover_media_url: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=600&q=80',
     type: 'RESEARCH',
     status: 'PUBLISHED',
     published_at: new Date('2026-10-23T11:00:00Z'),
@@ -1150,12 +1146,12 @@ export const SEED_ARTICLES: any[] = [
 ];
 
 export const SEED_HEADLINES = [
-  { id: 'hd-1', title: 'Regional baseline: Green sea turtle (Chelonia mydas) nesting season survey published', publisher: 'Regional Marine Research Network', url: 'https://example.org/conservation', published_on: new Date('2026-10-25T08:00:00Z'), is_pinned: true },
-  { id: 'hd-2', title: 'Winter thermal monitoring records 24.8°C reef minimum at central transect', publisher: 'Sample Marine Field Station', url: 'https://example.org/oceanography', published_on: new Date('2026-10-24T14:30:00Z'), is_pinned: false },
-  { id: 'hd-3', title: 'Sudan: Sanganeb Atoll 30-year acoustic grey reef shark telemetry dataset synthesized', publisher: 'Red Sea University Marine Institute', url: 'https://example.org/sudan-sharks', published_on: new Date('2026-10-23T11:15:00Z'), is_pinned: false },
-  { id: 'hd-4', title: 'Saudi Arabia: Farasan Archipelago aerial survey confirms resident population of 450+ dugongs', publisher: 'National Center for Wildlife', url: 'https://example.org/saudi-dugongs', published_on: new Date('2026-10-22T09:40:00Z'), is_pinned: false },
-  { id: 'hd-5', title: 'Jordan: Aqaba Marine Reserve laboratory measures extreme heat threshold exceeding 33°C in branching corals', publisher: 'Aqaba Marine Science Station', url: 'https://example.org/jordan-super-corals', published_on: new Date('2026-10-21T16:20:00Z'), is_pinned: false },
-  { id: 'hd-6', title: 'Djibouti: Ghoubbet-el-Kharab winter whale shark aggregation records arrival of 85 juvenile individuals', publisher: 'Djibouti Biodiversity Authority', url: 'https://example.org/djibouti-whale-sharks', published_on: new Date('2026-10-20T13:10:00Z'), is_pinned: false },
+  { id: 'hd-1', title: 'Regional baseline: Green sea turtle (Chelonia mydas) nesting season survey published', publisher: 'Sample Marine Field Station', url: 'https://example.org/conservation', published_on: new Date('2026-10-25T08:00:00Z'), is_pinned: true, is_sample: true },
+  { id: 'hd-2', title: 'Winter thermal monitoring records typical baseline seasonal transect', publisher: 'Sample Oceanography Group', url: 'https://example.org/oceanography', published_on: new Date('2026-10-24T14:30:00Z'), is_pinned: false, is_sample: true },
+  { id: 'hd-3', title: 'Sudan: Sanganeb Atoll acoustic reef shark telemetry dataset synthesized', publisher: 'Sample Marine Ecology Unit', url: 'https://example.org/sudan-sharks', published_on: new Date('2026-10-23T11:15:00Z'), is_pinned: false, is_sample: true },
+  { id: 'hd-4', title: 'Saudi Arabia: Farasan Archipelago aerial survey confirms resident dugong populations', publisher: 'Demo Wildlife Survey Group', url: 'https://example.org/saudi-dugongs', published_on: new Date('2026-10-22T09:40:00Z'), is_pinned: false, is_sample: true },
+  { id: 'hd-5', title: 'Jordan: Aqaba Marine Reserve transects record elevated coral heat tolerance', publisher: 'Sample Reef Research Group', url: 'https://example.org/jordan-super-corals', published_on: new Date('2026-10-21T16:20:00Z'), is_pinned: false, is_sample: true },
+  { id: 'hd-6', title: 'Djibouti: Ghoubbet-el-Kharab winter survey tracks seasonal juvenile whale shark arrivals', publisher: 'Sample Coastal Observation Network', url: 'https://example.org/djibouti-whale-sharks', published_on: new Date('2026-10-20T13:10:00Z'), is_pinned: false, is_sample: true },
 ];
 
 export const SEED_PLACES: any[] = [
@@ -2358,24 +2354,29 @@ export const SEED_ROUTES: any[] = [
 export const SEED_LIBRARY_ITEMS: any[] = [
   {
     id: 'lib-01',
-    slug: 'coral-thermal-tolerance-gulf-aqaba-fine-2013',
+    slug: 'coral-reef-refuge-red-sea-fine-2013',
     type: 'PAPER',
-    title: 'Coral reefs of the Red Sea: High tolerance to thermal stress in the Gulf of Aqaba',
-    subtitle: 'Evidence of evolutionary thermal memory and lack of bleaching under +3°C anomaly',
+    title: 'A coral reef refuge in the Red Sea',
+    subtitle: 'Evidence of evolutionary thermal memory and lack of bleaching under thermal anomaly',
     authors_text: 'Fine, M., Gildor, H., & Genin, A.',
     publisher: 'Global Change Biology',
     year: 2013,
+    volume: '19',
+    issue: '12',
+    pages: '3640–3647',
     language: 'en',
-    abstract: 'Global warming poses a severe threat to coral reefs, with mass bleaching events causing unprecedented coral mortality worldwide. Here we show that corals from the northern Gulf of Aqaba withstand water temperatures 3°C above the long-term summer maximum without bleaching, retaining normal photosynthetic efficiency and calcification. This physiological resilience is rooted in the evolutionary history of the Red Sea basin during post-glacial recolonization through the warm Bab el-Mandeb sill, creating a regional thermal refugium of global conservation significance.',
-    doi: '10.1111/gcb.12198',
-    external_url: 'https://doi.org/10.1111/gcb.12198',
+    abstract: 'Thermal tolerance assays demonstrate that northern Red Sea corals withstand elevated temperatures without bleaching. The evolutionary filter of the warm southern sill creates a vital regional thermal refuge.',
+    doi: '10.1111/gcb.12356',
+    external_url: 'https://doi.org/10.1111/gcb.12356',
     is_open_access: true,
+    verified_via: 'Crossref',
+    verified_at: new Date('2026-10-27T00:00:00Z'),
     status: 'PUBLISHED',
-    is_demo: true,
+    is_demo: false,
     topics: [{ topic_id: 'top-1', topic: SEED_TOPICS[0] }],
-    citation_apa: 'Fine, M., Gildor, H., & Genin, A. (2013). Coral reefs of the Red Sea: High tolerance to thermal stress in the Gulf of Aqaba. Global Change Biology, 19(12), 3640-3647.',
+    citation_apa: 'Fine, M., Gildor, H., & Genin, A. (2013). A coral reef refuge in the Red Sea. Global Change Biology, 19(12), 3640-3647. https://doi.org/10.1111/gcb.12356',
     citation_bibtex: `@article{fine2013coral,
-  title={Coral reefs of the Red Sea: High tolerance to thermal stress in the Gulf of Aqaba},
+  title={A coral reef refuge in the Red Sea},
   author={Fine, Maoz and Gildor, Hezi and Genin, Amatzia},
   journal={Global Change Biology},
   volume={19},
@@ -2383,7 +2384,7 @@ export const SEED_LIBRARY_ITEMS: any[] = [
   pages={3640--3647},
   year={2013},
   publisher={Wiley Online Library},
-  doi={10.1111/gcb.12198}
+  doi={10.1111/gcb.12356}
 }`,
   },
   {
@@ -2499,8 +2500,8 @@ export const SEED_LIBRARY_ITEMS: any[] = [
     year: 2021,
     language: 'en',
     abstract: 'Open-access scientific dataset containing 15 years of standardized annual nesting records on Zabargad Island. Includes clutch counts, false crawl ratios, tag-recapture logs, and hourly sand incubation temperatures across four distinct nesting sectors.',
-    doi: '10.5281/zenodo.4891234',
-    external_url: 'https://doi.org/10.5281/zenodo.4891234',
+    doi: null,
+    external_url: null,
     is_open_access: true,
     status: 'PUBLISHED',
     is_demo: true,
@@ -2526,6 +2527,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Egypt’s premier marine science authority established in 1918, overseeing oceanographic research stations in Hurghada and Suez.',
     country: 'Egypt',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-02',
@@ -2536,6 +2538,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Department of the Egyptian Ministry of Environment responsible for national park administration and environmental law enforcement.',
     country: 'Egypt',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-03',
@@ -2546,6 +2549,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Non-governmental scientific foundation focused on artisanal fishing sustainability, mooring buoy maintenance, and coral nurseries.',
     country: 'Egypt',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-04',
@@ -2556,6 +2560,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Sudan’s leading marine science authority in Port Sudan, stewarding long-term monitoring at Sanganeb Atoll and Dungonab Bay.',
     country: 'Sudan',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-05',
@@ -2566,6 +2571,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Premier marine science institution in Thuwal, Saudi Arabia, specializing in genomics, deep-sea exploration, and coral thermal adaptation.',
     country: 'Saudi Arabia',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-06',
@@ -2576,6 +2582,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Joint marine research facility of the University of Jordan and Yarmouk University, monitoring Gulf of Aqaba coral reef resilience since 1974.',
     country: 'Jordan',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-07',
@@ -2586,6 +2593,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'National research and conservation department managing the Dahlak Archipelago Marine Reserve and artisanal fisheries sustainability.',
     country: 'Eritrea',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-08',
@@ -2596,6 +2604,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Managing national sanctuaries in Ghoubbet-el-Kharab and Moucha Island, stewarding global whale shark migration research.',
     country: 'Djibouti',
     is_demo: true,
+    is_listing_placeholder: true,
   },
   {
     id: 'org-09',
@@ -2606,6 +2615,7 @@ export const SEED_ORGANIZATIONS: any[] = [
     description: 'Regional intergovernmental organization dedicated to the conservation of coastal and marine environments across all Red Sea littoral states.',
     country: 'Regional',
     is_demo: true,
+    is_listing_placeholder: true,
   },
 ];
 
@@ -2975,7 +2985,7 @@ export const SEED_SIGHTINGS: any[] = [
     reporter_email: 'hesham.dive@sample.eg',
     is_sensitive_species: true,
     is_demo: true,
-    photo_url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80',
+    photo_url: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'stg-02',
@@ -2999,7 +3009,7 @@ export const SEED_SIGHTINGS: any[] = [
     reporter_email: 'layla@redseamonitor.org',
     is_sensitive_species: false,
     is_demo: true,
-    photo_url: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80',
+    photo_url: 'https://images.unsplash.com/photo-1570498839593-e565b3d4f6ee?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'stg-03',
@@ -3023,7 +3033,7 @@ export const SEED_SIGHTINGS: any[] = [
     reporter_email: 'jmiller@sample-ornithology.org',
     is_sensitive_species: false,
     is_demo: true,
-    photo_url: 'https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?auto=format&fit=crop&w=800&q=80',
+    photo_url: 'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'stg-04',
@@ -3435,19 +3445,19 @@ export const SEED_PHOTO_STORIES: any[] = [
 export const SEED_MAKERS: any[] = [
   {
     id: 'mkr-01',
-    slug: 'fatima-al-abadi-shalatin',
-    name: 'Fatima Al-Abadi & The Shalatin Palm Guild',
-    place_of_origin: 'Shalatin, Halayeb Triangle',
+    slug: 'sample-coastal-palm-craft-collective',
+    name: 'Sample Coastal Palm Craft Collective',
+    place_of_origin: 'Basin Coastal Craft Workshop (Demo)',
     story: {
-      bio: 'Master weaver belonging to the southern Ababda clan. Fatima leads a cooperative of sixteen desert women in Shalatin who transform wild Doum palm (Hyphaene thebaica) fronds harvested sustainably from seasonal wadi beds into tight-weave carrying baskets, bread coolers, and camel saddles.',
-      technique: 'Traditional hand-twining with vegetable-tanned camel hide stringing, bleached solely by the southern desert sun without chemical lime or petroleum waxes.',
-      heritage_region: 'Halayeb and Southern Eastern Desert',
-      conservation_note: 'Palm harvesting occurs strictly outside nesting season of arid zone ground birds; frond harvest promotes new vegetative shoot growth in seasonal watercourses.'
+      bio: 'Fictional sample artisan collective profile demonstrating vernacular palm-frond weaving techniques. Across Red Sea coastal wadis, wild Doum palm (Hyphaene thebaica) fronds have historically been harvested to braid resilient specimen baskets, bread coolers, and field gear.',
+      technique: 'Traditional hand-twining with unbleached natural bast fibres, dried under coastal sunlight without synthetic coatings.',
+      heritage_region: 'Coastal Red Sea Littoral Wadis',
+      conservation_note: 'Palm harvesting occurs strictly outside nesting season of arid zone ground birds; frond harvest promotes vegetative shoot growth in seasonal watercourses.'
     },
-    photo_id: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80',
+    photo_id: 'https://images.unsplash.com/photo-1595461135849-bf08893d45c0?auto=format&fit=crop&w=800&q=80',
     links: {
-      cooperative: 'Halayeb Women Desert Heritage Initiative',
-      location: 'Shalatin Camel Market Artisan Row'
+      cooperative: 'Sample Heritage Craft Documentation Project',
+      location: 'Field Craft Workshop'
     },
     status: 'PUBLISHED',
     is_demo: true,
@@ -3521,7 +3531,7 @@ export const SEED_PRODUCTS: any[] = [
     description: 'A robust, breathable field utility basket hand-braided from wild Doum palm (Hyphaene thebaica) fronds in Shalatin. Naturally water-resistant, sand-tight, and bordered with vegetable-tanned camel leather handles designed for desert field research and specimen gathering.',
     price_amount: 1450,
     currency: 'EGP',
-    images: ['https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80'],
+    images: ['https://images.unsplash.com/photo-1595461135849-bf08893d45c0?auto=format&fit=crop&w=1000&q=80'],
     materials: 'Wild Doum Palm Fronds, Sun-bleached Palm Bast, Camel Leather Straps',
     origin_place: 'Shalatin, Halayeb District',
     availability: 'AVAILABLE',
@@ -3620,5 +3630,24 @@ export const SEED_PRODUCT_ENQUIRIES: any[] = [
     message: 'Inquiring about commissioning a custom-dimensioned wooden case for an antique brass sextant from 1948. Would the Al-Quseir atelier be able to craft to bespoke interior measurements?',
     status: 'IN_REVIEW',
     created_at: new Date('2026-10-25T15:45:00Z'),
+  },
+];
+
+export const SEED_QUOTES: any[] = [
+  {
+    id: 'quote-01',
+    text: 'The Red Sea rift represents an invaluable natural laboratory for marine science. Across all seven coastal nations, documenting thermal resilience, endemic biodiversity, and vernacular maritime knowledge remains our central editorial commitment.',
+    speaker_name: 'Editorial Desk',
+    speaker_role: 'Red Sea Monitor Editorial Collective',
+    source_url: 'https://redseamonitor.org/editorial-policy',
+    is_demo: false,
+  },
+  {
+    id: 'quote-02',
+    text: 'Understanding how shallow fringing reefs survive extreme seasonal salinity and temperature shifts is key to projecting coral survival under global climate models.',
+    speaker_name: 'Sample Marine Ecologist',
+    speaker_role: 'Field Ecology Researcher (Demo)',
+    source_url: null,
+    is_demo: true,
   },
 ];

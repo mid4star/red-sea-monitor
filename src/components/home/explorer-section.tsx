@@ -6,7 +6,7 @@ import { SectionHeader } from '@/components/ui/section-header';
 import { CoordinateTag } from '@/components/ui/coordinate-tag';
 import { CountryFlag } from '@/components/ui/country-flag';
 import { SciName } from '@/components/ui/sciname';
-import { CoastalTownArt, CoralArt, WadiArt, DunesArt, DugongArt } from '@/components/art/illustrations';
+import { CoastalTownArt, CoralArt, WadiArt, MarineReserveArt, DugongArt } from '@/components/art/illustrations';
 
 interface EntryTile {
   title: string;
@@ -42,7 +42,7 @@ const ENTRY_TILES: EntryTile[] = [
     title: 'Marine Protected Areas',
     count: '28 MPAs',
     examples: 'Ras Mohammed, Dahlak Marine Park, Aqaba',
-    art: DunesArt,
+    art: MarineReserveArt,
     href: '/explorer/places?type=PROTECTED_AREA',
   },
 ];
@@ -115,7 +115,7 @@ export async function ExplorerSection() {
               <div className="space-y-3">
                 <div className="relative aspect-[16/10] w-full rounded overflow-hidden border border-rule/50">
                   <Image
-                    src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
+                    src="https://images.unsplash.com/photo-1516683037151-9a17603a8dc7?auto=format&fit=crop&w=600&q=80"
                     alt="Sanganeb Atoll coral wall and lighthouse, Sudan"
                     fill
                     sizes="360px"
@@ -157,7 +157,7 @@ export async function ExplorerSection() {
               <div className="space-y-3">
                 <div className="relative aspect-[16/10] w-full rounded overflow-hidden border border-rule/50">
                   <Image
-                    src="https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=600&q=80"
+                    src="https://images.unsplash.com/photo-1544552866-d3ed42536cfd?auto=format&fit=crop&w=600&q=80"
                     alt="Fringing coral reef gardens in Aqaba Marine Reserve, Jordan"
                     fill
                     sizes="360px"
@@ -201,6 +201,9 @@ export async function ExplorerSection() {
                   <DugongArt className="w-full h-full object-cover" />
                   <div className="absolute top-2 right-2 bg-amber-500/90 text-white text-[10px] font-mono px-2 py-0.5 rounded font-bold">
                     IUCN: Vulnerable (VU)
+                  </div>
+                  <div className="absolute bottom-2 left-2 bg-sea-900/80 backdrop-blur-sm text-paper text-[10px] font-mono px-2 py-0.5 rounded border border-paper/20">
+                    Illustration
                   </div>
                 </div>
 
