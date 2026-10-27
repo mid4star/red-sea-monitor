@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Country routes
-  const countryRoutes: MetadataRoute.Sitemap = SEED_COUNTRIES.map((ctry) => ({
+  const countryRoutes: MetadataRoute.Sitemap = SEED_COUNTRIES.filter((c) => c.status !== 'DISABLED').map((ctry) => ({
     url: `${siteUrl}/countries/${ctry.iso2.toLowerCase()}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',

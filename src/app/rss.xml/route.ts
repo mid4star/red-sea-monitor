@@ -48,7 +48,7 @@ export async function GET() {
   <channel>
     <title>Red Sea Monitor — Field News &amp; Environmental Intelligence</title>
     <link>${siteUrl}</link>
-    <description>An independent scientific and editorial monitoring platform documenting Egypt's Red Sea coast and Eastern Desert.</description>
+    <description>An independent scientific and editorial monitoring platform documenting marine biodiversity, coral refugia, and coastal heritage across the Red Sea basin.</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />

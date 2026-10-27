@@ -13,7 +13,7 @@ import { blurCoordinates } from '@/lib/geo';
 export const metadata: Metadata = {
   title: 'Explorer — Red Sea Gazetteer & Biogeography',
   description:
-    'An open spatial repository of marine sanctuaries, coral pinnacles, desert wadis, and vulnerable fauna across Egypt’s Red Sea and Eastern Desert.',
+    'An open spatial repository of marine sanctuaries, coral pinnacles, coastal bays, and vulnerable fauna across the entire Red Sea basin.',
 };
 
 export default async function ExplorerHubPage() {
@@ -47,7 +47,7 @@ export default async function ExplorerHubPage() {
           The Red Sea Explorer
         </h1>
         <p className="font-serif text-lg text-stone-600 dark:text-stone-300 leading-relaxed">
-          A peer-verified field gazetteer documenting marine sanctuaries, offshore coral pinnacles, prehistoric Eastern Desert wadis, and vulnerable fauna from the Gulf of Suez to the Sudanese border.
+          A peer-verified field gazetteer documenting marine sanctuaries, offshore coral pinnacles, coastal ecosystems, and vulnerable fauna across the entire Red Sea rift basin.
         </p>
 
         {/* Quick Nav Anchor Pills */}

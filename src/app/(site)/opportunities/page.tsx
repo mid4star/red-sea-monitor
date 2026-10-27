@@ -12,7 +12,7 @@ import { Clock, MapPin, DollarSign, Award, ArrowUpRight } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'Grants, Fellowships & Field Opportunities — Red Sea Monitor',
   description:
-    'Directory of marine science research grants, fellowships, conservation jobs, and volunteer programs in Egypt’s Red Sea.',
+    'Directory of marine science research grants, fellowships, conservation jobs, and volunteer expeditions across the Red Sea basin.',
 };
 
 export default async function OpportunitiesIndexPage({

@@ -8,7 +8,7 @@ import { Camera } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Community Photo Stories — Red Sea Watch',
-  description: 'Visual field stories and underwater documentation from observers across Egypt’s Red Sea.',
+  description: 'Visual field stories and underwater documentation from observers across the Red Sea basin.',
 };
 
 export default async function PhotoStoriesPage() {

@@ -9,7 +9,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Places Gazetteer — Red Sea Monitor',
-  description: 'Gazetteer of marine sanctuaries, coral reefs, desert wadis, and coastal sectors along Egypt’s Red Sea.',
+  description: 'Gazetteer of marine sanctuaries, coral reefs, and coastal sectors across the Red Sea basin.',
 };
 
 export default async function PlacesIndexPage({

@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 export const metadata: Metadata = {
   title: 'Makers & Heritage Crafts | Red Sea Monitor',
   description:
-    'Documenting the traditional artisans, botanical apothecaries, and maritime woodcarvers of Egypt’s Red Sea coast and Eastern Desert. Direct community enquiry protocol.',
+    'Documenting the traditional artisans, coastal weavers, and maritime craftspeople across the Red Sea basin. Direct community enquiry protocol.',
 };
 
 export default async function StorePage({

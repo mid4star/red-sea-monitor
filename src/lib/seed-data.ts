@@ -27,6 +27,7 @@ export const SEED_COUNTRIES = [
     coast_length_km: 1800,
     summary: 'Spanning from the Gulf of Suez and Gulf of Aqaba down to the Halayeb Triangle. Features northern evolutionary thermal refugia, oceanic offshore pinnacles (Brother Islands, Daedalus), and pristine mangrove deltas.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
   },
   {
@@ -41,6 +42,7 @@ export const SEED_COUNTRIES = [
     coast_length_km: 853,
     summary: 'Home to the UNESCO World Heritage Sanganeb Atoll and Dungonab Bay-Mukkawar Island Marine National Park. Preserves critical regional nurseries for dugongs, manta rays, and oceanic grey reef sharks.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
   },
   {
@@ -55,6 +57,7 @@ export const SEED_COUNTRIES = [
     coast_length_km: 1800,
     summary: 'Encompassing the eastern Red Sea flank from the Gulf of Aqaba south to the Farasan Archipelago. Features untouched barrier reef systems, extensive seagrass meadows, and major offshore sanctuaries.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
   },
   {
@@ -69,6 +72,7 @@ export const SEED_COUNTRIES = [
     coast_length_km: 27,
     summary: 'Situated at the northern apex of the Gulf of Aqaba, housing the Aqaba Marine Park with over 150 species of scleractinian hard corals displaying extraordinary evolutionary resistance to heatwaves.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
   },
   {
@@ -83,6 +87,7 @@ export const SEED_COUNTRIES = [
     coast_length_km: 1151,
     summary: 'Dominating the southwestern Red Sea shelf and the 350+ islands of the Dahlak Archipelago. Known for turbid-water coral adaptations, vast mangrove stands, and essential foraging zones for marine turtles.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
   },
   {
@@ -97,6 +102,7 @@ export const SEED_COUNTRIES = [
     coast_length_km: 452,
     summary: 'Flanking the northern gateway of the Bab-el-Mandeb strait and volcanic island archipelagos (Zukur, Hanish, Kamaran). High-nutrient oceanic upwelling creates prolific pelagic feeding grounds.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
   },
   {
@@ -111,7 +117,9 @@ export const SEED_COUNTRIES = [
     coast_length_km: 372,
     summary: 'Located at the southern entrance of the Red Sea rift where it joins the Gulf of Aden. World-famous seasonal congregation ground for juvenile whale sharks in Ghoubbet-el-Kharab and Moucha Island.',
     status: 'ACTIVE',
+    is_littoral: true,
     is_published: true,
+    editorial_note: 'Coastal waters flank the Bab-el-Mandeb entrance and Gulf of Tadjoura.',
   },
   {
     id: 'ctry-so',
@@ -125,7 +133,25 @@ export const SEED_COUNTRIES = [
     coast_length_km: null,
     summary: 'Gulf of Aden and Bab-el-Mandeb southern perimeter. Ecological baseline surveys coming soon.',
     status: 'COMING_SOON',
+    is_littoral: false,
     is_published: false,
+    editorial_note: 'Gulf of Aden partner coastline outside the central rift.',
+  },
+  {
+    id: 'ctry-il',
+    iso2: 'IL',
+    slug: 'israel',
+    name: 'Israel',
+    native_name: 'ישראל',
+    flag_emoji: '🇮🇱',
+    latitude: 29.55,
+    longitude: 34.95,
+    coast_length_km: 14,
+    summary: 'Gulf of Aqaba northern coastline.',
+    status: 'DISABLED',
+    is_littoral: true,
+    is_published: false,
+    editorial_note: 'Excluded from public display per explicit platform directive; switchable via database administration.',
   },
 ];
 

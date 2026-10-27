@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: '%s | Red Sea Monitor',
   },
   description:
-    'An independent scientific and editorial monitoring platform covering Egypt’s Red Sea coast, marine ecosystems, and Eastern Desert conservation.',
+    'An independent scientific and editorial monitoring platform covering marine biodiversity, conservation sanctuaries, and coral thermal refugia across the entire Red Sea basin.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   openGraph: {
     title: 'Red Sea Monitor',

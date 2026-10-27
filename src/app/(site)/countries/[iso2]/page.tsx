@@ -26,6 +26,7 @@ import { CoordinateTag } from '@/components/ui/coordinate-tag';
 import { SampleBadge } from '@/components/ui/sample-badge';
 import { formatDateDeterministic } from '@/lib/date';
 import { SciName } from '@/components/ui/sciname';
+import { CountryFlag } from '@/components/ui/country-flag';
 
 interface CountryPageProps {
   params: Promise<{
@@ -34,7 +35,7 @@ interface CountryPageProps {
 }
 
 export async function generateStaticParams() {
-  return SEED_COUNTRIES.map((c) => ({
+  return SEED_COUNTRIES.filter((c) => c.status !== 'DISABLED').map((c) => ({
     iso2: c.iso2.toLowerCase(),
   }));
 }
@@ -42,7 +43,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   const { iso2 } = await params;
   const country = SEED_COUNTRIES.find(
-    (c) => c.iso2.toLowerCase() === iso2.toLowerCase()
+    (c) => c.iso2.toLowerCase() === iso2.toLowerCase() && c.status !== 'DISABLED'
   );
 
   if (!country) {
@@ -59,7 +60,7 @@ export default async function CountryDossierPage({ params }: CountryPageProps) {
   const { iso2 } = await params;
   const isoUpper = iso2.toUpperCase();
   const country = SEED_COUNTRIES.find(
-    (c) => c.iso2.toUpperCase() === isoUpper
+    (c) => c.iso2.toUpperCase() === isoUpper && c.status !== 'DISABLED'
   );
 
   if (!country) {
@@ -106,7 +107,7 @@ export default async function CountryDossierPage({ params }: CountryPageProps) {
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-3xl sm:text-4xl">{country.flag_emoji}</span>
+              <CountryFlag iso2={country.iso2} name={country.name} className="w-8 h-6 rounded-xs shadow-sm" />
               <Badge variant={isComingSoon ? 'neutral' : 'sea'}>
                 {isComingSoon ? 'Coming Soon / Baseline Survey' : 'Active Sovereign Basin Member'}
               </Badge>

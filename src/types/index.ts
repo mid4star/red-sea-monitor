@@ -193,7 +193,7 @@ export interface AuditLogItem {
 // REGIONAL BASIN TYPES (PHASE B)
 // ==============================================================================
 
-export type CountryStatus = 'ACTIVE' | 'COMING_SOON';
+export type CountryStatus = 'ACTIVE' | 'COMING_SOON' | 'DISABLED';
 
 export interface RegionalCountry {
   id: string;
@@ -207,7 +207,9 @@ export interface RegionalCountry {
   coast_length_km?: number | null;
   summary: string;
   status: CountryStatus;
+  is_littoral: boolean;
   is_published: boolean;
+  editorial_note?: string;
 }
 
 export interface MarineRegion {

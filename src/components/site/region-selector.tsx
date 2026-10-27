@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { Globe, ChevronDown, Check, ExternalLink } from 'lucide-react';
 import { SEED_COUNTRIES } from '@/lib/seed-data';
+import { CountryFlag } from '@/components/ui/country-flag';
 
 interface RegionSelectorProps {
   className?: string;
@@ -105,10 +106,6 @@ function RegionSelectorInner({ className = '', variant = 'compact' }: RegionSele
     (c) => c.iso2.toUpperCase() === selectedIso2
   );
 
-  const displayLabel = currentCountry
-    ? `${currentCountry.flag_emoji || '📍'} ${currentCountry.name}`
-    : 'All Red Sea Basin';
-
   if (variant === 'drawer') {
     return (
       <div className={`space-y-2 ${className}`}>
@@ -152,7 +149,7 @@ function RegionSelectorInner({ className = '', variant = 'compact' }: RegionSele
                 }`}
               >
                 <span className="flex items-center gap-1.5 truncate">
-                  <span>{ctry.flag_emoji}</span>
+                  <CountryFlag iso2={ctry.iso2} name={ctry.name} className="w-3.5 h-2.5" />
                   <span className="truncate">{ctry.name}</span>
                 </span>
                 {isSelected && <Check className="w-3.5 h-3.5 shrink-0" />}
@@ -173,7 +170,16 @@ function RegionSelectorInner({ className = '', variant = 'compact' }: RegionSele
         className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono rounded bg-paper-card dark:bg-sea-900/60 border border-rule hover:border-sea-600 transition-colors text-ink dark:text-paper"
       >
         <Globe className="w-3.5 h-3.5 text-sea-700 dark:text-sea-500 shrink-0" />
-        <span className="font-medium truncate max-w-[140px] sm:max-w-none">{displayLabel}</span>
+        <span className="font-medium truncate max-w-[140px] sm:max-w-none flex items-center gap-1.5">
+          {currentCountry ? (
+            <>
+              <CountryFlag iso2={currentCountry.iso2} name={currentCountry.name} className="w-3.5 h-2.5" />
+              <span className="truncate">{currentCountry.name}</span>
+            </>
+          ) : (
+            'All Red Sea Basin'
+          )}
+        </span>
         <ChevronDown
           className={`w-3 h-3 text-muted transition-transform duration-150 ${
             isOpen ? 'rotate-180' : ''
@@ -229,7 +235,7 @@ function RegionSelectorInner({ className = '', variant = 'compact' }: RegionSele
                     onClick={() => handleSelectCountry(ctry.iso2)}
                     className="flex items-center gap-2 text-left flex-1 min-w-0"
                   >
-                    <span className="text-base leading-none shrink-0">{ctry.flag_emoji}</span>
+                    <CountryFlag iso2={ctry.iso2} name={ctry.name} className="w-4 h-3 shrink-0" />
                     <div className="min-w-0 flex-1 truncate">
                       <div className="truncate font-medium flex items-center gap-1.5">
                         <span>{ctry.name}</span>

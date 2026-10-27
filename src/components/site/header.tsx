@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { CoordinateTag } from '@/components/ui/coordinate-tag';
 import { RegionSelector } from '@/components/site/region-selector';
+import { ActiveBasinCoordinates } from '@/components/site/active-coordinates';
 
 const NAV_LINKS = [
   { href: '/news', label: 'News' },
@@ -67,7 +68,7 @@ export const SiteHeader: React.FC = () => {
             <span>FIELD DISPATCH: RED SEA REGION</span>
           </span>
           <span className="text-rule">•</span>
-          <CoordinateTag lat={27.2579} lng={33.8116} />
+          <ActiveBasinCoordinates />
         </div>
 
         <div className="flex items-center gap-3">
@@ -169,7 +170,7 @@ export const SiteHeader: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between pb-3 border-b border-rule">
               <span className="font-mono text-xs uppercase tracking-wider text-muted">Field Sections</span>
-              <CoordinateTag lat={27.2579} lng={33.8116} />
+              <ActiveBasinCoordinates />
             </div>
 
             {/* Basin Country Focus Selector */}

@@ -11,7 +11,7 @@ import { ContentStatus, ArticleType } from '@prisma/client';
 
 export const metadata = {
   title: 'Red Sea News & Investigations',
-  description: 'Verified environmental reporting, marine biology dispatches, and conservation policies across Egypt’s Red Sea and Eastern Desert.',
+  description: 'Verified environmental reporting, marine biology dispatches, and conservation policies across the Red Sea basin.',
 };
 
 export default async function NewsPage({

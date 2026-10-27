@@ -34,3 +34,20 @@ This document records architectural, design, and environment assumptions made du
 ## 5. Seed Data & Sample Flags
 - All seed records set `is_demo = true` and display an editorial "Sample" badge.
 - Dashboard includes a single-action demo data manager to purge all demo records.
+
+
+## 6. Sovereign Basin Littoral States & Editorial Inclusions (v3 Scope)
+- **Active Sovereign Littoral States (7 published):**
+  1. Egypt (`EG`): `is_littoral: true, is_published: true, status: 'ACTIVE'`
+  2. Sudan (`SD`): `is_littoral: true, is_published: true, status: 'ACTIVE'`
+  3. Saudi Arabia (`SA`): `is_littoral: true, is_published: true, status: 'ACTIVE'`
+  4. Jordan (`JO`): `is_littoral: true, is_published: true, status: 'ACTIVE'`
+  5. Eritrea (`ER`): `is_littoral: true, is_published: true, status: 'ACTIVE'`
+  6. Yemen (`YE`): `is_littoral: true, is_published: true, status: 'ACTIVE'`
+  7. Djibouti (`DJ`): `is_littoral: true, is_published: true, status: 'ACTIVE'` (Editorial note: Flanks Bab-el-Mandeb and Gulf of Tadjoura)
+- **Regional Partners (1 baseline):**
+  8. Somalia (`SO`): `is_littoral: false, is_published: false, status: 'COMING_SOON'` (Editorial note: Gulf of Aden partner coastline outside the central rift)
+- **Flagged Editorial Decision for Site Owner:**
+  - Israel (`IL`): Configured in data schema as `is_littoral: true, is_published: false, status: 'DISABLED'`. Per explicit user directive ("إلا اسرائيل لا تقم باضافتها"), Israel is excluded from public UI filters, dropdowns, map hotspots, and sitemaps. It remains switchable via database administration whenever the owner decides.
+- **Single Source of Truth:**
+  - `src/lib/basin-stats.ts` dynamically derives the active littoral state count (`COUNT(is_littoral AND is_published) = 7`) and provides provenance sources (PERSGA, UNEP-WCMC, WDPA, IHO) for every figure.

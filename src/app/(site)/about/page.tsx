@@ -7,7 +7,7 @@ import { prisma } from '@/lib/db';
 
 export const metadata = {
   title: 'About the Initiative & Field Mission',
-  description: 'An independent scientific editorial platform dedicated to Egypt’s Red Sea coast and Eastern Desert.',
+  description: 'An independent scientific and editorial platform dedicated to the Red Sea basin and its littoral coastlines.',
 };
 
 export default async function AboutPage() {
@@ -50,7 +50,7 @@ export default async function AboutPage() {
           <span className="font-mono text-xs text-muted">Field Journal Philosophy</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink dark:text-paper leading-tight">
-          An independent reference for Egypt’s Red Sea and Eastern Desert.
+          An independent reference for the whole Red Sea basin.
         </h1>
         <p className="font-sans text-lg text-muted leading-relaxed">
           Red Sea Monitor is an open-access editorial and scientific observatory. We bridge the gap between academic marine biology research and public investigative reporting.

@@ -10,7 +10,7 @@ import { IucnScale } from '@/components/explorer/iucn-scale';
 export const metadata: Metadata = {
   title: 'Species Biogeographic Catalog — Red Sea Monitor',
   description:
-    'Comprehensive directory of marine and terrestrial fauna and flora across Egypt’s Red Sea and Eastern Desert, with IUCN conservation statuses.',
+    'Comprehensive directory of marine and coastal fauna and flora across the Red Sea basin, with verified IUCN conservation statuses.',
 };
 
 export default async function SpeciesIndexPage({
