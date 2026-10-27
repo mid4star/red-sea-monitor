@@ -20,48 +20,67 @@ import { CoordinateTag } from '@/components/ui/coordinate-tag';
 import { SampleBadge } from '@/components/ui/sample-badge';
 import { SectionHeader } from '@/components/ui/section-header';
 import { StoryCard } from '@/components/ui/cards';
+import { SciName } from '@/components/ui/sciname';
 
 export default function HomePage() {
   return (
     <div className="w-full">
       {/* ------------------------------------------------------------- */}
-      {/* 1. First-Visit Hero: Sea-to-Desert Field Journal Masthead */}
+      {/* 1. First-Visit Hero: Basin-Wide Field Journal Masthead */}
       {/* ------------------------------------------------------------- */}
       <section className="relative w-full border-b border-rule bg-sand-300/15 dark:bg-sea-900/30 overflow-hidden">
         {/* Subtle contour bathymetry background */}
         <div className="absolute inset-0 bg-bathymetry-subtle opacity-70 pointer-events-none" />
 
         <div className="max-w-content mx-auto px-4 lg:px-8 py-12 md:py-20 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            <div className="lg:col-span-8 space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="coral">Live Field Dispatch</Badge>
-                <CoordinateTag lat={27.2579} lng={33.8116} />
-                <SampleBadge />
-              </div>
-
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink dark:text-paper leading-[1.08]">
-                Where the Eastern Desert meets the deep reef.
-              </h1>
-
-              <p className="font-sans text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
-                An independent editorial and science archive monitoring biodiversity, artisanal fishing heritage, and coral thermal refugia across Egypt’s Red Sea governorate.
-              </p>
+          <div className="max-w-3xl space-y-6">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="coral">Live Field Dispatch</Badge>
+              <CoordinateTag lat={22.0} lng={38.0} />
+              <SampleBadge />
             </div>
 
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
-              <Link href="/watch" className="w-full">
-                <Button variant="coral" size="md" className="w-full gap-2">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink dark:text-paper leading-[1.08]">
+              From Suez to Bab-el-Mandeb: one sea, many shores.
+            </h1>
+
+            <p className="font-sans text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
+              An independent editorial and science archive monitoring marine biodiversity, endemic taxa, artisanal coastal heritage, and coral thermal refugia across the entire Red Sea rift basin.
+            </p>
+
+            {/* Direct side-by-side action buttons directly beneath text */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <Link href="/watch">
+                <Button variant="coral" size="md" className="gap-2 min-h-[44px]">
                   <Eye className="w-4 h-4" />
                   <span>Explore Live Sightings</span>
                 </Button>
               </Link>
-              <Link href="/watch?modal=submit" className="w-full">
-                <Button variant="outline" size="md" className="w-full gap-2">
+              <Link href="/watch/submit">
+                <Button variant="outline" size="md" className="gap-2 min-h-[44px]">
                   <PlusCircle className="w-4 h-4" />
                   <span>Submit Observation</span>
                 </Button>
               </Link>
+            </div>
+
+            {/* Live Telemetry Mini-Counters */}
+            <div className="pt-4 border-t border-rule/60 flex flex-wrap items-center gap-6 text-xs font-mono text-muted">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="font-semibold text-ink dark:text-paper">8</span>
+                <span>Littoral Coastlines</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-rule">•</span>
+                <span className="font-semibold text-ink dark:text-paper">6</span>
+                <span>Marine Sub-Basins</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-rule">•</span>
+                <span className="font-semibold text-ink dark:text-paper">100%</span>
+                <span>Open-Access Science</span>
+              </div>
             </div>
           </div>
         </div>
@@ -79,12 +98,12 @@ export default function HomePage() {
 
           <div className="flex items-center gap-4 overflow-x-auto whitespace-nowrap text-muted py-0.5">
             <span className="text-ink dark:text-paper">
-              Marsa Alam: Green sea turtle (*Chelonia mydas*) nesting season baseline logged
+              Regional baseline: Green sea turtle <SciName inParentheses>Chelonia mydas</SciName> nesting survey logged
             </span>
             <span className="opacity-40">•</span>
-            <span>NIOF reports 24.8°C winter minimum at Elphinstone transect</span>
+            <span>Winter thermal monitoring records 24.8°C reef minimum at central transect</span>
             <span className="opacity-40">•</span>
-            <span>Hurghada coastal protection decree ratified for Sha&apos;ab Abu Nuhas</span>
+            <span>Coastal habitat protection zoning ratified for northern archipelago reefs</span>
           </div>
 
           <Link href="/news" className="shrink-0 text-coral-500 hover:underline flex items-center gap-1 font-sans">
@@ -94,7 +113,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="max-w-content mx-auto px-4 lg:px-8 py-12 md:py-16 space-y-16">
+      <div className="max-w-content mx-auto px-4 lg:px-8 py-10 md:py-16 space-y-14">
         {/* ------------------------------------------------------------- */}
         {/* 3. Lead Story & Stacked Stories (Asymmetric 7/12 + 5/12) */}
         {/* ------------------------------------------------------------- */}
@@ -107,32 +126,34 @@ export default function HomePage() {
             actionText="Read all dispatches"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            {/* Lead Story (7 cols) */}
-            <div className="lg:col-span-7">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+            {/* Lead Story (7 cols) with balanced image frame */}
+            <div className="lg:col-span-7 flex flex-col justify-between">
               <StoryCard
                 featured
                 slug="coral-resilience-gulf-aqaba-super-reefs"
                 title="Inside the Thermal Refugia: Why Northern Red Sea Corals Resist Global Bleaching"
                 dek="While global reef systems endure catastrophic bleaching events, scientific surveys between Ras Mohammed and the Straits of Tiran show historic thermo-tolerance. Researchers are decoding their genetic evolutionary advantage."
+                coverUrl="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80"
                 type="FEATURE"
                 publishedAt="2026-10-24T09:00:00Z"
                 readingMinutes={7}
-                authorName="Dr. Tariq El-Gamil & Layla Mansour"
+                authorName="Field Research Desk"
                 isDemo
               />
             </div>
 
-            {/* Stacked Stories (5 cols) */}
+            {/* Stacked Stories (5 cols) without artificial stretching */}
             <div className="lg:col-span-5 space-y-6 flex flex-col justify-between">
               <StoryCard
                 slug="dugong-population-surveys-wadi-el-gemal"
                 title="Acoustic Tracking Confirms Resilient Dugong Grazing Corridors in Hamata"
                 dek="Hydrophone arrays positioned in sheltered seagrass meadows reveal persistent foraging behaviors among resident dugong populations."
+                coverUrl="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
                 type="FIELD_NOTE"
                 publishedAt="2026-10-22T14:30:00Z"
                 readingMinutes={4}
-                authorName="Prof. Karim Zidan"
+                authorName="Marine Ecology Working Group"
                 isDemo
               />
 
@@ -143,7 +164,7 @@ export default function HomePage() {
                 type="INTERVIEW"
                 publishedAt="2026-10-18T11:15:00Z"
                 readingMinutes={5}
-                authorName="Omar Sherif"
+                authorName="Cultural Heritage Archive"
                 isDemo
               />
             </div>
@@ -153,7 +174,7 @@ export default function HomePage() {
         {/* ------------------------------------------------------------- */}
         {/* 4. Red Sea Watch Strip (Community Science) */}
         {/* ------------------------------------------------------------- */}
-        <section aria-labelledby="section-watch" className="border-t border-rule pt-12">
+        <section aria-labelledby="section-watch" className="border-t border-rule pt-10">
           <SectionHeader
             index="02"
             title="Red Sea Watch: Wildlife Telemetry"
@@ -172,18 +193,18 @@ export default function HomePage() {
 
               <div>
                 <h4 className="font-serif text-lg font-semibold text-ink dark:text-paper">
-                  Dugong (*Dugong dugon*)
+                  Dugong <SciName inParentheses>Dugong dugon</SciName>
                 </h4>
                 <p className="font-mono text-xs text-muted">Marsa Abu Dabbab, Marsa Alam</p>
               </div>
 
-              <p className="text-xs text-muted leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 Observed solitary individual grazing on Halophila stipulacea meadow at 6m depth. No boat-strike scars.
               </p>
 
               <div className="pt-2 border-t border-rule/40 flex items-center justify-between text-[11px] font-mono text-muted">
-                <span>Verified by NIOF</span>
-                <span>Yesterday</span>
+                <span>Verified by Sample Ranger Unit</span>
+                <span>24 Oct 2026</span>
               </div>
             </div>
 
@@ -196,18 +217,18 @@ export default function HomePage() {
 
               <div>
                 <h4 className="font-serif text-lg font-semibold text-ink dark:text-paper">
-                  Hawksbill Turtle (*Eretmochelys imbricata*)
+                  Hawksbill Turtle <SciName inParentheses>Eretmochelys imbricata</SciName>
                 </h4>
                 <p className="font-mono text-xs text-muted">Shark Reef, Ras Mohammed</p>
               </div>
 
-              <p className="text-xs text-muted leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 Sub-adult foraging on soft sponges along outer wall drop-off. Alert and active swimming.
               </p>
 
               <div className="pt-2 border-t border-rule/40 flex items-center justify-between text-[11px] font-mono text-muted">
-                <span>Verified by Ranger Unit</span>
-                <span>3 days ago</span>
+                <span>Verified by Coastal Research Team</span>
+                <span>22 Oct 2026</span>
               </div>
             </div>
 
@@ -220,18 +241,18 @@ export default function HomePage() {
 
               <div>
                 <h4 className="font-serif text-lg font-semibold text-ink dark:text-paper">
-                  Whale Shark (*Rhincodon typus*)
+                  Whale Shark <SciName inParentheses>Rhincodon typus</SciName>
                 </h4>
                 <p className="font-mono text-xs text-muted">Elphinstone Reef Offshore</p>
               </div>
 
-              <p className="text-xs text-muted leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 Surface filter-feeding observed during calm sea state (Beaufort 1). Estimated length ~5.5 meters.
               </p>
 
               <div className="pt-2 border-t border-rule/40 flex items-center justify-between text-[11px] font-mono text-muted">
-                <span>Verified by Marine Patrol</span>
-                <span>5 days ago</span>
+                <span>Verified by Field Station Hub</span>
+                <span>20 Oct 2026</span>
               </div>
             </div>
           </div>
@@ -240,7 +261,7 @@ export default function HomePage() {
         {/* ------------------------------------------------------------- */}
         {/* 5. Explorer: Featured Place & Species */}
         {/* ------------------------------------------------------------- */}
-        <section aria-labelledby="section-explorer" className="border-t border-rule pt-12">
+        <section aria-labelledby="section-explorer" className="border-t border-rule pt-10">
           <SectionHeader
             index="03"
             title="Red Sea Explorer"
@@ -261,8 +282,8 @@ export default function HomePage() {
                 Wadi El Gemal National Park
               </h3>
 
-              <p className="font-sans text-sm text-muted leading-relaxed">
-                Spanning 7,450 km² from the Red Sea offshore barrier islands to the emerald mines of Mons Smaragdus in the Eastern Desert. Egypt’s prime sanctuary for dugongs, ospreys, and Dorcas gazelles.
+              <p className="font-sans text-sm md:text-base text-muted leading-relaxed">
+                Spanning 7,450 km² from the Red Sea offshore barrier islands to the emerald mines of Mons Smaragdus in the Eastern Desert. Prime sanctuary for dugongs, ospreys, and Dorcas gazelles.
               </p>
 
               <div className="pt-3 border-t border-rule/40 flex items-center justify-between text-xs font-mono">
@@ -283,12 +304,14 @@ export default function HomePage() {
 
               <div>
                 <h3 className="font-serif text-2xl font-semibold text-ink dark:text-paper">
-                  Stegostoma tigrinum
+                  <SciName className="text-2xl not-italic-markers text-ink dark:text-paper font-semibold">
+                    Stegostoma tigrinum
+                  </SciName>
                 </h3>
-                <p className="font-serif italic text-sm text-muted">Zebra / Leopard Shark</p>
+                <p className="font-sans text-sm text-muted">Zebra / Leopard Shark</p>
               </div>
 
-              <p className="font-sans text-sm text-muted leading-relaxed">
+              <p className="font-sans text-sm md:text-base text-muted leading-relaxed">
                 Nocturnal benthic predator resting on sandy patches adjacent to deep pinnacle reefs. Highly vulnerable to demersal gillnets and commercial aquarium harvesting.
               </p>
 
@@ -306,7 +329,7 @@ export default function HomePage() {
         {/* ------------------------------------------------------------- */}
         {/* 6. Opportunities & Field Research Grants */}
         {/* ------------------------------------------------------------- */}
-        <section aria-labelledby="section-opportunities" className="border-t border-rule pt-12">
+        <section aria-labelledby="section-opportunities" className="border-t border-rule pt-10">
           <SectionHeader
             index="04"
             title="Red Sea Opportunities"
@@ -325,7 +348,7 @@ export default function HomePage() {
                 <h4 className="font-serif text-lg font-semibold text-ink dark:text-paper">
                   Red Sea Coral Genetic Resiliency Research Fellowship 2026/27
                 </h4>
-                <p className="font-sans text-xs text-muted mt-1">NIOF & Regional Conservation Fund</p>
+                <p className="font-sans text-xs text-muted mt-1">Regional Marine Conservation Initiative</p>
                 <p className="font-mono text-xs text-ink dark:text-paper font-semibold mt-2">
                   Funding: $45,000 USD (Includes boat transect charter & lab access)
                 </p>
@@ -349,9 +372,9 @@ export default function HomePage() {
                 <h4 className="font-serif text-lg font-semibold text-ink dark:text-paper">
                   Marine Ranger Spatial GIS & Seagrass Monitoring Residency
                 </h4>
-                <p className="font-sans text-xs text-muted mt-1">Egyptian Environmental Affairs Agency (EEAA)</p>
+                <p className="font-sans text-xs text-muted mt-1">Sample Protected Area Management Unit</p>
                 <p className="font-mono text-xs text-ink dark:text-paper font-semibold mt-2">
-                  Duration: 3 Months • Fully Funded (Wadi El Gemal Field Station)
+                  Duration: 3 Months • Fully Funded (Marine Field Station)
                 </p>
               </div>
 
@@ -377,7 +400,7 @@ export default function HomePage() {
             <h3 className="font-serif text-2xl md:text-3xl font-bold text-ink dark:text-paper">
               Receive verified monthly Red Sea data and investigative reporting.
             </h3>
-            <p className="font-sans text-sm text-muted leading-relaxed">
+            <p className="font-sans text-sm md:text-base text-muted leading-relaxed">
               No sponsored tourism marketing. Curated updates on marine protected areas, ecological alerts, scientific papers, and grant deadlines.
             </p>
 

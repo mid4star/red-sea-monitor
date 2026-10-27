@@ -303,9 +303,9 @@ export const SEED_ARTICLES: any[] = [
 ];
 
 export const SEED_HEADLINES = [
-  { id: 'hd-1', title: 'Marsa Alam: Green sea turtle (*Chelonia mydas*) nesting season baseline logged', publisher: 'EEAA Nature Conservation', url: 'https://eeaa.gov.eg', published_on: new Date(), is_pinned: true },
-  { id: 'hd-2', title: 'NIOF reports 24.8°C winter minimum at Elphinstone transect', publisher: 'NIOF Marine Directorate', url: 'https://niof.sci.eg', published_on: new Date(), is_pinned: false },
-  { id: 'hd-3', title: 'Hurghada coastal protection decree ratified for Sha’ab Abu Nuhas', publisher: 'Red Sea Governorate', url: 'https://redsea.gov.eg', published_on: new Date(), is_pinned: false },
+  { id: 'hd-1', title: 'Regional baseline: Green sea turtle (Chelonia mydas) nesting season survey published', publisher: 'Regional Marine Research Network', url: 'https://example.org/conservation', published_on: new Date('2026-10-25T08:00:00Z'), is_pinned: true },
+  { id: 'hd-2', title: 'Winter thermal monitoring records 24.8°C reef minimum at central transect', publisher: 'Sample Marine Field Station', url: 'https://example.org/oceanography', published_on: new Date('2026-10-24T14:30:00Z'), is_pinned: false },
+  { id: 'hd-3', title: 'Coastal habitat protection zoning ratified for northern archipelago reefs', publisher: 'Coastal Resource Stewardship Unit', url: 'https://example.org/protection', published_on: new Date('2026-10-23T11:15:00Z'), is_pinned: false },
 ];
 
 export const SEED_PLACES: any[] = [
@@ -471,7 +471,7 @@ export const SEED_PLACES: any[] = [
     slug: 'shaab-sataya-dolphin-reef',
     name: 'Sha’ab Sataya (Fury Shoal)',
     type: 'REEF',
-    summary: 'Massive horseshoe-shaped barrier reef in the southern Red Sea creating a calm sheltered lagoon utilized daily by large pods of spinner dolphins (*Stenella longirostris*) for resting and nursing calves.',
+    summary: 'Massive horseshoe-shaped barrier reef in the southern Red Sea creating a calm sheltered lagoon utilized daily by large pods of spinner dolphins (Stenella longirostris) for resting and nursing calves.',
     latitude: 24.1667,
     longitude: 35.6833,
     protection_status: 'Regulated Cetacean Sanctuary',
@@ -553,7 +553,7 @@ export const SEED_SPECIES: any[] = [
     iucn_status: 'CR',
     description: 'Critically endangered marine turtle characterized by a sharp, curved beak and serrated shell edges. Specializes in foraging on toxic reef sponges, helping maintain coral diversity.',
     habitat: 'Steep outer reef walls, coral drop-offs, and shallow sponge gardens from 2m to 40m.',
-    diet: 'Exclusively spongivorous, feeding on demosponges (*Chondrosia*, *Suberites*).',
+    diet: 'Exclusively spongivorous, feeding on demosponges (Chondrosia, Suberites).',
     threats: 'Historical tortoiseshell trade, discarded monofilament fishing gear, motorboat hull collisions, loss of nesting beaches.',
     is_sensitive: true,
     cover_media_url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
@@ -595,7 +595,7 @@ export const SEED_SPECIES: any[] = [
     iucn_status: 'EN',
     description: 'Large herbivorous marine turtle critical for the health of coastal seagrass ecosystems. Zabargad Island in Egypt hosts one of the largest green turtle rookeries in the entire Indian Ocean region.',
     habitat: 'Shallow coastal bays, lagoons, and offshore sandy islets.',
-    diet: 'Adults are almost exclusively herbivorous, grazing on *Halophila stipulacea* and *Cymodocea rotundata*.',
+    diet: 'Adults are almost exclusively herbivorous, grazing on Halophila stipulacea and Cymodocea rotundata.',
     threats: 'Coastal development lighting disorienting hatchlings, plastic ingestion, marine traffic.',
     is_sensitive: true,
     cover_media_url: 'https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=1200&q=80',
@@ -617,9 +617,9 @@ export const SEED_SPECIES: any[] = [
       },
     ],
     reviewed_by: {
-      name: 'Prof. Karim Zidan',
+      name: 'Sample Marine Scientist',
       role: 'REVIEWER',
-      organization: 'NIOF Hurghada',
+      organization: 'Regional Marine Research Institute',
     },
   },
   {
@@ -631,7 +631,7 @@ export const SEED_SPECIES: any[] = [
     iucn_status: 'VU',
     description: 'Placid, slow-moving marine mammal strictly dependent on shallow inshore seagrass beds. Egyptian Red Sea waters support an isolated and genetically distinct northern subpopulation.',
     habitat: 'Sheltered warm coastal embayments (marsas), mangrove fringes, and coastal flats.',
-    diet: 'Herbivorous specialist feeding primarily on pioneering seagrass roots and leaves (*Halophila ovalis*).',
+    diet: 'Herbivorous specialist feeding primarily on pioneering seagrass roots and leaves (Halophila ovalis).',
     threats: 'Propeller strikes from high-speed zodiacs, entanglement in artisanal gillnets, coastal dredging.',
     is_sensitive: true,
     cover_media_url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',

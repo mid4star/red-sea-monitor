@@ -5,6 +5,7 @@ import { ArrowUpRight, Calendar, Clock, BookOpen, ExternalLink, MapPin } from 'l
 import { CoordinateTag } from './coordinate-tag';
 import { SampleBadge } from './sample-badge';
 import { Badge } from './badge';
+import { formatDateDeterministic } from '@/lib/date';
 
 // -------------------------------------------------------------
 // 1. StoryCard (News & Features)
@@ -37,7 +38,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({
   featured = false,
 }) => {
   return (
-    <article className="group relative flex flex-col justify-between border-b border-rule pb-6 mb-6">
+    <article className="group relative flex flex-col justify-between border-b border-rule pb-6">
       <div>
         {coverUrl && (
           <div className="relative w-full aspect-[16/9] mb-4 overflow-hidden rounded-md bg-sand-300/20 border border-rule">
@@ -73,14 +74,14 @@ export const StoryCard: React.FC<StoryCardProps> = ({
           </Link>
         </h3>
 
-        {dek && <p className="mt-2 text-sm text-muted line-clamp-2 leading-relaxed">{dek}</p>}
+        {dek && <p className="mt-2 text-sm md:text-base text-muted line-clamp-3 leading-relaxed">{dek}</p>}
       </div>
 
       <div className="mt-4 pt-3 border-t border-rule/40 flex items-center justify-between text-xs font-mono text-muted">
         <div>
           {authorName ? <span>By {authorName}</span> : sourcePublisher ? <span>Source: {sourcePublisher}</span> : null}
         </div>
-        {publishedAt && <span>{new Date(publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>}
+        {publishedAt && <span>{formatDateDeterministic(publishedAt)}</span>}
       </div>
     </article>
   );
@@ -251,7 +252,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
 }) => {
   const isClosingSoon =
     deadlineAt &&
-    Math.ceil((new Date(deadlineAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24)) <= 14;
+    Math.ceil((new Date(deadlineAt).getTime() - new Date('2026-10-27T00:00:00Z').getTime()) / (1000 * 60 * 60 * 24)) <= 14;
 
   return (
     <article className="group relative border border-rule rounded-md bg-paper-card dark:bg-sea-900/20 p-5 hover:border-sea-700/50 transition-all flex flex-col justify-between">
@@ -288,7 +289,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
         {deadlineAt && (
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" />
-            <span>Due {new Date(deadlineAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span>
+            <span>Due {formatDateDeterministic(deadlineAt, { includeDay: true, fullMonth: false })}</span>
           </span>
         )}
       </div>

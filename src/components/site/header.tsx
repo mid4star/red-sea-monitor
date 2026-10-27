@@ -63,7 +63,7 @@ export const SiteHeader: React.FC = () => {
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5 text-sea-700 dark:text-sea-500 font-medium">
             <span className="w-2 h-2 rounded-full bg-[#43A047] animate-pulse" />
-            <span>FIELD DISPATCH: EGYPTIAN RED SEA BASIN</span>
+            <span>FIELD DISPATCH: RED SEA REGION</span>
           </span>
           <span className="text-rule">•</span>
           <CoordinateTag lat={27.2579} lng={33.8116} />
@@ -74,9 +74,8 @@ export const SiteHeader: React.FC = () => {
             Editorial Standard & Verification
           </Link>
           <span className="text-rule">•</span>
-          <Link href="/admin" className="flex items-center gap-1 hover:text-coral-500 transition-colors">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Admin Workspace</span>
+          <Link href="/contact" className="hover:text-ink dark:hover:text-paper transition-colors">
+            Dispatch Desk
           </Link>
         </div>
       </div>
@@ -201,7 +200,7 @@ export const SiteHeader: React.FC = () => {
             <div className="grid grid-cols-2 gap-2 text-xs font-mono text-muted pt-2">
               <Link href="/about" className="py-2 hover:text-ink dark:hover:text-paper">About Project</Link>
               <Link href="/editorial-policy" className="py-2 hover:text-ink dark:hover:text-paper">Editorial Policy</Link>
-              <Link href="/admin" className="py-2 text-coral-500 font-semibold">Admin Workspace</Link>
+              <Link href="/contact" className="py-2 hover:text-ink dark:hover:text-paper">Dispatch Desk</Link>
               <Link href="/styleguide" className="py-2 hover:text-ink dark:hover:text-paper">Design System</Link>
             </div>
           </div>

@@ -33,6 +33,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const showDevTools =
+    process.env.NODE_ENV === 'development' &&
+    process.env.NEXT_PUBLIC_DEV_TOOLS === 'true';
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased min-h-screen flex flex-col bg-paper text-ink selection:bg-coral-500 selection:text-white">
@@ -40,7 +44,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
-        <RoleSwitcher />
+        {showDevTools && <RoleSwitcher />}
       </body>
     </html>
   );

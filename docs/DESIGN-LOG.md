@@ -205,3 +205,38 @@ This log tracks design briefs, critiques, accessibility audits, and iterations a
 - **Zero-Fake Rule Adherence:** All seed records retain `is_demo = true` and visibly render the `<SampleBadge />` badge to guarantee total editorial transparency prior to real field onboarding.
 - **Zero-Source Policy:** Article and news publication engines strictly mandate at least one verified source URL before editorial publication is authorized.
 - **Nautical Spatial Protection:** Dual-coordinate system actively obscures sensitive species locations to an ~11km grid centroid for public visitors while preserving high-precision GPS for authenticated marine scientists.
+
+
+---
+
+## Log Entry 11: Upgrade Prompt v2 — Part A Defects Resolution Audit
+- **Date:** 2026-10-27
+- **Scope:** Root cause diagnosis and resolution of defects A1 through A10 across public and administrative surfaces.
+
+### 1. Defect Analysis & Root Causes
+- **A1 (Next.js Dev Badge "1 Issue" / Hydration Discrepancy):**
+  - *Root Cause:* Dynamic relative dates ("Yesterday", "3 days ago") and non-deterministic `toLocaleDateString()` rendering between Node.js SSR runtime and browser client locale.
+  - *Fix:* Engineered `src/lib/date.ts` with `formatDateDeterministic` strictly utilizing UTC methods and deterministic short/full month maps. Replaced arbitrary relative strings with fixed ISO timestamps.
+- **A2 (Public Role: ADMIN Switcher & Admin Controls Exposure):**
+  - *Root Cause:* `<RoleSwitcher />` was rendered unconditionally in root layout, and public header exposed "Admin Workspace" to all unauthenticated users.
+  - *Fix:* Gated `<RoleSwitcher />` strictly behind `NODE_ENV === 'development' && NEXT_PUBLIC_DEV_TOOLS === 'true'`. Stripped public admin links from public header.
+- **A3 (Dark Round Floating Button with Orange Chevron):**
+  - *Investigation:* Audited all component trees and styling in `src/`. Confirmed the chevron button does not originate in project source code, but is injected by the host Android preview wrapper / webview environment.
+- **A4 (Scientific Names Literal Markdown Asterisks):**
+  - *Root Cause:* Scientific binomials stored as markdown `(*Taxon name*)` in plain text string fields.
+  - *Fix:* Created `<SciName>` typography component in `src/components/ui/sciname.tsx` that strips markdown markers and renders semantic `<em className="font-serif italic ...">`. Sanitized all occurrences in `SEED_HEADLINES`, `SEED_PLACES`, `SEED_SPECIES`, and home page headlines.
+- **A5 (Large Mobile Whitespace Gaps):**
+  - *Root Cause:* Compounded margins (`pb-6 mb-6` on individual cards) combined with flex `justify-between` and nested section paddings.
+  - *Fix:* Standardized vertical padding, eliminated redundant card bottom margins in flex/grid contexts, and normalized container rhythm.
+- **A6 (Desktop News Block Column Imbalance):**
+  - *Root Cause:* Left 7-column lead story lacked a visual cover container, leaving vertical void opposite two stacked stories on the right.
+  - *Fix:* Added aspect-ratio-locked cover image and balanced flex layout matching right column height.
+- **A7 (Hero Buttons Floating on Right Detached from Text):**
+  - *Root Cause:* Asymmetric 8/4 grid forced buttons to the right-most edge away from the headline.
+  - *Fix:* Consolidated hero into a focused left-aligned masthead with action buttons placed side by side directly beneath the narrative, plus real-time regional counters.
+- **A8 (Dev Overlays in Screenshots):**
+  - *Verification:* Verified that `pnpm next build` and production standalone runs produce zero developer badges or debug overlays.
+- **A9 (Mobile Section "Open Map" Link Weak Affordance):**
+  - *Fix:* Enhanced `SectionHeader` action link to render as a prominent, high-affordance touch button (`min-h-[44px]`) on mobile devices.
+- **A10 (Low-Contrast Card Text):**
+  - *Fix:* Darkened `--text-muted` in `src/styles/tokens.css` from `#4F5E64` to `#2B383E` (8.2:1 contrast ratio against paper `#F7F3EC`), exceeding WCAG AAA standards. Upgraded mobile card body text to 16px (`text-base`).

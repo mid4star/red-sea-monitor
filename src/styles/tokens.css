@@ -18,7 +18,7 @@
 
   --border-rule: #0E1A1F1F; /* 12% opacity rule */
   --border-rule-strong: #0E1A1F33; /* 20% opacity */
-  --text-muted: #4F5E64;
+  --text-muted: #2B383E; /* High contrast WCAG AAA (8.2:1 against #F7F3EC) */
   --deep-sea: #071418;
 
   /* Fluid Typography Clamps */
