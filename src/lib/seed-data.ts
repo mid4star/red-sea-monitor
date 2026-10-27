@@ -2754,7 +2754,7 @@ export const SEED_OPPORTUNITIES: any[] = [
   {
     id: 'opp-07',
     country_id: 'ctry-jo',
-    country_iso2: 'Jordan',
+    country_iso2: 'JO',
     country_name: 'Jordan',
     slug: 'jordan-aqaba-super-coral-residency',
     title: 'Gulf of Aqaba Coral Thermal Physiology Research Residency',

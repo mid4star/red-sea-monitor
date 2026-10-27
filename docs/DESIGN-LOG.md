@@ -276,4 +276,61 @@ This log tracks design briefs, critiques, accessibility audits, and iterations a
 - **Country Hub Pages (`src/app/(site)/countries/[iso2]/page.tsx`):** Dynamic dossiers with coast length, marine regions, and filtered places, dispatches, sightings, and opportunities.
 - **Marine Sub-Basin Pages (`src/app/(site)/regions/[slug]/page.tsx`):** 6 oceanographic profiles covering Gulf of Suez, Gulf of Aqaba, Northern Red Sea, Central Red Sea, Southern Red Sea, and Bab-el-Mandeb.
 - **Gazetteer Link Integrity:** Added `src/app/(site)/places/[slug]/page.tsx` redirecting to `/explorer/places/[slug]`, and static params for all dynamic routes.
-- **Documentation:** Created `docs/ARABIC-ROADMAP.md` and updated `docs/EDITORIAL-POLICY.md` with Section 5 (Regional Basin Neutrality & UN Cartographic Standards).
+---
+
+## Log Entry 13 — UPGRADE PROMPT v3: Merged Regional Magazine & Rhythm
+**Date:** 2026-10-27  
+**Scope:** Complete implementation of Upgrade Prompt v3 (Parts 1 through 10)  
+**Status:** 100% Implemented, Verified & Built  
+
+### 1. Defect Fixes & Single Source of Truth (Part 1, 3, 4, 5)
+- **Defect 1 (Basin Map Rebuild):** Replaced flat placeholder with an accurate Natural Earth vector hydrographic map of the Red Sea rift in `src/components/home/basin-map.tsx`, highlighting Gulf of Suez, Gulf of Aqaba, Bab-el-Mandeb, and key archipelagos (Dahlak, Farasan, Hanish, Sanganeb). 60/40 desktop split with active hotspot inspector, non-truncated country chips, layer filters, and accessible `<details>` list.
+- **Defect 2 (Telemetry Provenance):** Established `src/lib/basin-stats.ts` as the single authoritative source of truth for basin metrics. Corrected littoral count to `7 Active Sovereign States` (COUNT(is_littoral && is_published): EG, SD, SA, JO, ER, YE, DJ) + `1 Gulf of Aden Partner` (Somalia). Attached provenance metadata (PERSGA, UNEP-WCMC WDPA, Veron & Fine PNAS, UN Cartographic Section).
+- **Defect 3 & 5 (Generic Egypt-Only Copy Elimination):** Swept all core components, layout metadata, RSS feeds, sitemaps, and navigation to reflect full basin scope. Added automated CI test `scripts/check-no-egypt-generic.mjs` (`pnpm run check:generic`).
+- **Defect 8 (Floating Button & Next.js Badge):** Confirmed no rogue floating button or debug overlay exists in app DOM/CSS. Production build runs clean.
+- **Defect 9 (Vector Flags):** Created `src/components/ui/country-flag.tsx` rendering vector SVG flags for all littoral states (EG, SD, SA, JO, ER, YE, DJ, SO) plus ISO code fallback badges.
+- **Defect 10 (Dynamic Coordinate Tag):** Built `src/components/site/active-coordinates.tsx` dynamically displaying active country coordinates or defaulting to basin center (`20°00′N 38°00′E`).
+- **Defect 11 (SAMPLE Discipline):** Attached visible SAMPLE badges to all unverified ticker items and sample records.
+
+### 2. New 10-Band Full-Bleed Home Page Rhythm (Part 2 & 8)
+Rebuilt `src/app/(site)/page.tsx` into 10 full-bleed bands with distinct alternating surfaces, SVG contour/wave dividers, and 64px/96px/128px padding rhythm:
+- **Band 0 (Hero - `--sea-900`):** Masthead with high-res reef image, dark-to-transparent scrim, side-by-side min-48px buttons, 3 live counters, photo credit tag, and desktop floating "Field Note" card (Hawksbill Turtle, Straits of Tiran).
+- **Band 0b (Field Wires - `--sea-100`):** Ticker strip with `SAMPLE` badge, multi-country dispatches, pause on hover/focus, and static display on `prefers-reduced-motion`.
+- **Band 1 (Basin at a Glance - `--sea-100` + contour texture):** Rebuilt Basin Map + wrapped country chips + telemetry stats popovers.
+- **Band 2 (01 / News - `--paper`):** Lead story (3:2) + 2 stacked stories + editorial pull-quote card + latest basin headlines list + newly published row.
+- **Band 3 (02 / Watch - `--sea-900`):** Recent observations telemetry cards (CR/EN/VU/LC color-coded left edges, scientific names, coordinates) + "Share your photo of the Red Sea" contribution card.
+- **Band 4 (03 / Library - `--paper`):** 4 category tiles (Books, Reports, Maps, Heritage) with icons & counts + featured milestone citation card with APA ready snippet.
+- **Band 5 (04 / Store - `--sand-100` warm):** Master artisan story (Fatima Al-Abadi & Shalatin Palm Guild) + craft preview + 3 guild chips + "Coming soon" notify-me email field.
+- **Band 6 (05 / Opportunities - `--sea-900`):** 3 opportunity cards with coral deadline stubs ("12 days left") + 3-step volunteer onboarding sub-block + suggestion action.
+- **Band 7 (06 / Explorer - `--sand-100` atlas tint):** 4 entry category tiles with vector art + photo cards (Sanganeb Atoll, Aqaba Marine Reserve, Dugong keystone profile).
+- **Band 8 (Contribute Banner - `--sea-700`):** Open civic science network call with twin actions (Share a sighting, Send an editorial tip) and verification notice.
+- **Band 9 (Newsletter - `--paper`):** Red Sea Dispatch subscription with 3 topic preference checkboxes (News, Grants, Sightings).
+- **Band 10 (Footer - `--sea-900`):** Basin-wide regional footer with 4 navigation columns, basin coordinates, and `/credits` attribution.
+- **Mobile Chapter Navigation:** Created `MobileChapterPill` client component showing active chapter (`01 / News`, `02 / Watch`, etc.) via IntersectionObserver, plus quick-action thumb camera button.
+
+### 3. Vector Illustration System & Image Attribution (Part 6)
+Created flat, textured SVG illustrations under `src/components/art/illustrations.tsx`:
+- `SunSeaArt` — Dawn sun over Red Sea waves and coastal mountains
+- `DunesArt` — Coastal sand dunes and wind ripples
+- `WadiArt` — Desert canyon with acacia silhouette
+- `CoralArt` — Branching Acropora and reef fish silhouettes
+- `DhowArt` — Traditional sambuk wooden sailboat with lateen sail
+- `TurtleArt` — Chelonia mydas gliding over reef
+- `DugongArt` — Dugong dugon grazing in Halophila seagrass meadow
+- `CoastalTownArt` — Red Sea coral-stone vernacular architecture with roshan mashrabiya
+- `CraftTextileArt` — Traditional Bedouin woven geometric patterns
+- `HeroIllustrationFallback` — Layered panorama fallback for hero
+- `WaveDivider` & `ContourDivider` — Seamless SVG section dividers
+
+### 4. Typography, Density & Touch Standards (Part 7)
+- Body text set to 16–18px (`1.0625rem` baseline), line-height 1.65.
+- Monospace strictly reserved for true telemetry (coordinates, IUCN codes, IDs, dates).
+- Touch targets strictly >= 48px on mobile.
+- Section padding standardized to 64px mobile / 96px tablet / 128px desktop.
+
+### 5. Verification & Content Integrity (Part 9 & 10)
+- `pnpm run check:generic`: PASSED (0 violations).
+- `pnpm exec tsc --noEmit`: PASSED (0 errors).
+- `pnpm exec next build`: PASSED (Exit code 0, all static pages generated).
+- Public country display: Israel strictly excluded per user mandate; 7 published littoral states + 1 partner.
+

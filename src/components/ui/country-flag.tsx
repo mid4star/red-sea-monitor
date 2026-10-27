@@ -7,6 +7,8 @@ export interface CountryFlagProps {
   name?: string;
   className?: string;
   showCode?: boolean;
+  showBadge?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export const CountryFlag: React.FC<CountryFlagProps> = ({
@@ -14,9 +16,13 @@ export const CountryFlag: React.FC<CountryFlagProps> = ({
   name,
   className = 'w-4 h-3',
   showCode = false,
+  showBadge = false,
+  size,
 }) => {
   const code = (iso2 || '').toUpperCase();
   const countryName = name || code;
+
+  const sizeClass = size === 'sm' ? 'w-4 h-2.5' : size === 'lg' ? 'w-6 h-4' : className;
 
   // Render clean vector SVG flags for Red Sea littoral nations
   const renderSvg = () => {
@@ -128,10 +134,10 @@ export const CountryFlag: React.FC<CountryFlagProps> = ({
 
   return (
     <span className="inline-flex items-center gap-1.5 align-middle">
-      <span className={`inline-block shrink-0 overflow-hidden ${className}`}>
+      <span className={`inline-block shrink-0 overflow-hidden ${sizeClass}`}>
         {renderSvg()}
       </span>
-      {showCode && (
+      {(showCode || showBadge) && (
         <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted">
           {code}
         </span>

@@ -20,6 +20,17 @@ export function getPartnerCountries() {
   return SEED_COUNTRIES.filter((c: any) => !c.is_littoral && c.status === 'COMING_SOON');
 }
 
+export function getBasinStats() {
+  const littoral = getLittoralCountries();
+  const partners = getPartnerCountries();
+  return {
+    littoral_states: littoral.length,
+    partner_states: partners.length,
+    marine_subbasins: 6,
+    open_access: 100,
+  };
+}
+
 export function getBasinTelemetry(): BasinStatItem[] {
   const littoralCount = getLittoralCountries().length;
   const partnerCount = getPartnerCountries().length;

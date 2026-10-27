@@ -19,6 +19,7 @@ export default {
         'sea-700': 'var(--sea-700)',
         'sea-500': 'var(--sea-500)',
         'sea-100': 'var(--sea-100)',
+        'sand-100': 'var(--sand-100)',
         'sand-300': 'var(--sand-300)',
         'sand-600': 'var(--sand-600)',
         'coral-500': 'var(--coral-500)',
