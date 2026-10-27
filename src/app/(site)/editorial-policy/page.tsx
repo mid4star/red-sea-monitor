@@ -54,7 +54,17 @@ export default function EditorialPolicyPage() {
             <li>Responsible editor or source confirming the correction.</li>
           </ul>
 
-          <h2>4. Funding & Independence Disclosure</h2>
+          <h2>4. Sensitive Species Coordinate Protection (The 11 km Rule)</h2>
+          <p>
+            To prevent illegal wildlife collection, poaching, and vessel harassment, exact GPS coordinates of endangered and vulnerable taxa (including dugongs, marine turtles, and oceanic whitetip sharks) are permanently blurred to a ~11 km bounding grid (~0.1°) for public users. High-precision telemetry data is restricted to accredited scientists and environmental authorities.
+          </p>
+
+          <h2>5. Regional Basin Neutrality & UN Cartographic Standards</h2>
+          <p>
+            Red Sea Monitor monitors the Red Sea basin as a unified transboundary marine ecosystem. We report across all sovereign littoral nations (Egypt, Sudan, Saudi Arabia, Jordan, Eritrea, Yemen, Djibouti, and Somalia fringe) adhering strictly to UN Cartographic section standards and international maritime hydrography. Our sole focus is peer-verified field ecology, climate refugia, and biodiversity conservation free from political polarization.
+          </p>
+
+          <h2>6. Funding & Independence Disclosure</h2>
           <p>
             Red Sea Monitor operates as a non-profit open-access research consortium. We do not accept funding from hotel development conglomerates, extractive fossil fuel projects, or unaccredited commercial tourism operators. Institutional partners provide access to research vessels, field laboratories, and academic peer review.
           </p>

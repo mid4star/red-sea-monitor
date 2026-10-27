@@ -1,14 +1,19 @@
 import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/db';
 import { ContentStatus } from '@prisma/client';
-import { SEED_ARTICLES } from '@/lib/seed-data';
+import {
+  SEED_ARTICLES,
+  SEED_COUNTRIES,
+  SEED_MARINE_REGIONS,
+  SEED_PLACES,
+} from '@/lib/seed-data';
 
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://redseamonitor.org';
 
-  // Static routes
+  // Static core routes
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
     { url: `${siteUrl}/news`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
@@ -29,6 +34,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${siteUrl}/newsletter`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
   ];
+
+  // Country routes
+  const countryRoutes: MetadataRoute.Sitemap = SEED_COUNTRIES.map((ctry) => ({
+    url: `${siteUrl}/countries/${ctry.iso2.toLowerCase()}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  // Marine sub-basin routes
+  const regionRoutes: MetadataRoute.Sitemap = SEED_MARINE_REGIONS.map((reg) => ({
+    url: `${siteUrl}/regions/${reg.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  // Place routes
+  const placeRoutes: MetadataRoute.Sitemap = SEED_PLACES.map((p) => ({
+    url: `${siteUrl}/explorer/places/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
 
   let articleRoutes: MetadataRoute.Sitemap = [];
 
@@ -53,5 +82,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
   }
 
-  return [...staticRoutes, ...articleRoutes];
+  return [...staticRoutes, ...countryRoutes, ...regionRoutes, ...placeRoutes, ...articleRoutes];
 }

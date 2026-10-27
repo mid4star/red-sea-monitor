@@ -8,9 +8,16 @@ import { SampleBadge } from '@/components/ui/sample-badge';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { CoordinateMap } from '@/components/explorer/coordinate-map';
 import { VisitGuidance } from '@/components/explorer/visit-guidance';
+import { SEED_PLACES } from '@/lib/seed-data';
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  return SEED_PLACES.map((p) => ({
+    slug: p.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

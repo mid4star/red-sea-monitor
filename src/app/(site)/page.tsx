@@ -21,6 +21,7 @@ import { SampleBadge } from '@/components/ui/sample-badge';
 import { SectionHeader } from '@/components/ui/section-header';
 import { StoryCard } from '@/components/ui/cards';
 import { SciName } from '@/components/ui/sciname';
+import { BasinGlanceSection } from '@/components/home/basin-glance-section';
 
 export default function HomePage() {
   return (
@@ -112,6 +113,11 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
+
+      {/* ------------------------------------------------------------- */}
+      {/* 2b. The Basin at a Glance (Transboundary Regional Overview) */}
+      {/* ------------------------------------------------------------- */}
+      <BasinGlanceSection />
 
       <div className="max-w-content mx-auto px-4 lg:px-8 py-10 md:py-16 space-y-14">
         {/* ------------------------------------------------------------- */}

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CoordinateTag } from '@/components/ui/coordinate-tag';
+import { RegionSelector } from '@/components/site/region-selector';
 
 const NAV_LINKS = [
   { href: '/news', label: 'News' },
@@ -69,7 +70,9 @@ export const SiteHeader: React.FC = () => {
           <CoordinateTag lat={27.2579} lng={33.8116} />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <RegionSelector />
+          <span className="text-rule">•</span>
           <Link href="/editorial-policy" className="hover:text-ink dark:hover:text-paper transition-colors">
             Editorial Standard & Verification
           </Link>
@@ -168,6 +171,9 @@ export const SiteHeader: React.FC = () => {
               <span className="font-mono text-xs uppercase tracking-wider text-muted">Field Sections</span>
               <CoordinateTag lat={27.2579} lng={33.8116} />
             </div>
+
+            {/* Basin Country Focus Selector */}
+            <RegionSelector variant="drawer" />
 
             <nav className="flex flex-col space-y-3">
               {NAV_LINKS.map((link) => {

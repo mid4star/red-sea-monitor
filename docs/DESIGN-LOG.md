@@ -240,3 +240,40 @@ This log tracks design briefs, critiques, accessibility audits, and iterations a
   - *Fix:* Enhanced `SectionHeader` action link to render as a prominent, high-affordance touch button (`min-h-[44px]`) on mobile devices.
 - **A10 (Low-Contrast Card Text):**
   - *Fix:* Darkened `--text-muted` in `src/styles/tokens.css` from `#4F5E64` to `#2B383E` (8.2:1 contrast ratio against paper `#F7F3EC`), exceeding WCAG AAA standards. Upgraded mobile card body text to 16px (`text-base`).
+
+
+---
+
+## Log Entry 12 — Part B: Regional Scope Expansion (Whole Red Sea Basin)
+**Date:** 2026-10-27  
+**Scope:** Part B of FIX & UPGRADE PROMPT v2  
+**Commit Range:** Regional Expansion  
+
+### 1. Database & Domain Types
+- Created SQL migration `supabase/migrations/20261027000001_regional_expansion.sql` establishing `countries`, `marine_regions`, and foreign key relations with `places`, `articles`, `species`, `sightings`, and `opportunities`.
+- Extended TypeScript domain interfaces in `src/types/index.ts` with `RegionalCountry`, `CountryStatus`, and `MarineRegion`.
+
+### 2. Regional Data Balancing (Rule B3: Egypt <= 35%)
+- Fully integrated 8 sovereign littoral states:
+  - Egypt (EG) - 1,800 km coast
+  - Sudan (SD) - 853 km coast (Sanganeb Atoll, Dungonab Bay, Suakin)
+  - Saudi Arabia (SA) - 1,800 km coast (Farasan Islands, Al-Wajh Barrier, Yanbu)
+  - Jordan (JO) - 27 km coast (Aqaba Marine Reserve & thermal refugia)
+  - Eritrea (ER) - 1,151 km coast (Dahlak Archipelago, Massawa Channel)
+  - Yemen (YE) - 452 km coast (Kamaran Island, Hanish Archipelago)
+  - Djibouti (DJ) - 372 km coast (Ghoubbet-el-Kharab Whale Shark Sanctuary, Moucha Island)
+  - Somalia (SO) - Gulf of Aden southern fringe baseline (Coming Soon)
+- **Strict User Mandate Enforced:** Israel completely excluded from all datasets, routes, selectors, and documentation.
+- Content counts and percentages:
+  - **Places:** 19 total, 6 Egypt = 31.6% (<= 35% target achieved)
+  - **Articles:** 15 total, 5 Egypt = 33.3% (<= 35% target achieved)
+  - **Sightings:** 18 total, 6 Egypt = 33.3% (<= 35% target achieved)
+  - **Opportunities:** 12 total, 4 Egypt = 33.3% (<= 35% target achieved)
+
+### 3. Components & Pages
+- **Region Selector (`src/components/site/region-selector.tsx`):** Header and mobile drawer selector persisting country focus in `rsm_country` cookie and `?country=` query parameter.
+- **The Basin at a Glance (`src/components/home/basin-glance-section.tsx`):** Added between Hero and News featuring 4 live telemetry metrics, an interactive SVG hydrographic map of the Red Sea rift with 10 clickable hotspot pins, and scrollable country dossier chips.
+- **Country Hub Pages (`src/app/(site)/countries/[iso2]/page.tsx`):** Dynamic dossiers with coast length, marine regions, and filtered places, dispatches, sightings, and opportunities.
+- **Marine Sub-Basin Pages (`src/app/(site)/regions/[slug]/page.tsx`):** 6 oceanographic profiles covering Gulf of Suez, Gulf of Aqaba, Northern Red Sea, Central Red Sea, Southern Red Sea, and Bab-el-Mandeb.
+- **Gazetteer Link Integrity:** Added `src/app/(site)/places/[slug]/page.tsx` redirecting to `/explorer/places/[slug]`, and static params for all dynamic routes.
+- **Documentation:** Created `docs/ARABIC-ROADMAP.md` and updated `docs/EDITORIAL-POLICY.md` with Section 5 (Regional Basin Neutrality & UN Cartographic Standards).

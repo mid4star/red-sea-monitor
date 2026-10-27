@@ -20,9 +20,16 @@ import { SampleBadge } from '@/components/ui/sample-badge';
 import { Prose } from '@/components/ui/prose';
 import { StoryCard } from '@/components/ui/cards';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { SEED_ARTICLES } from '@/lib/seed-data';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  return SEED_ARTICLES.map((a) => ({
+    slug: a.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {

@@ -7,9 +7,16 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { SampleBadge } from '@/components/ui/sample-badge';
 import { CalendarButton } from '@/components/opportunities/calendar-button';
 import { Clock, MapPin, DollarSign, Award, ArrowUpRight, Building } from 'lucide-react';
+import { SEED_OPPORTUNITIES } from '@/lib/seed-data';
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  return SEED_OPPORTUNITIES.map((o) => ({
+    slug: o.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
