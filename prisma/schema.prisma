@@ -1,0 +1,943 @@
+// Red Sea Monitor - Relational Database Schema
+// PostgreSQL with PostGIS compatibility
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -------------------------------------------------------------
+// 1. Identity, Access & Audit
+// -------------------------------------------------------------
+
+enum UserRole {
+  ADMIN
+  EDITOR
+  REVIEWER
+  CONTRIBUTOR
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password_hash String
+  role          UserRole  @default(CONTRIBUTOR)
+  avatar_id     String?
+  bio           String?
+  organization  String?
+  is_active     Boolean   @default(true)
+  last_login_at DateTime?
+  totp_secret   String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  authors           Author[]
+  audit_logs        AuditLog[]
+  verified_articles Article[] @relation("ArticleVerifier")
+  reviewed_places   Place[]   @relation("PlaceReviewer")
+  reviewed_species  Species[] @relation("SpeciesReviewer")
+  reviewed_sightings Sighting[] @relation("SightingReviewer")
+
+  @@index([role])
+  @@index([is_active])
+  @@map("users")
+}
+
+model Author {
+  id           String   @id @default(uuid())
+  user_id      String?
+  display_name String
+  slug         String   @unique
+  bio          String?
+  photo_id     String?
+  links        Json?    // Array of { title: string, url: string }
+  is_demo      Boolean  @default(false)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  user         User?           @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  articles     ArticleAuthor[]
+
+  @@map("authors")
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  user_id     String?
+  action      String   // CREATE, UPDATE, DELETE, PUBLISH, REVIEW
+  entity_type String   // ARTICLE, SIGHTING, PLACE, etc.
+  entity_id   String
+  diff        Json?
+  ip_hash     String?
+  created_at  DateTime @default(now())
+
+  user        User?    @relation(fields: [user_id], references: [id], onDelete: SetNull)
+
+  @@index([entity_type, entity_id])
+  @@index([created_at])
+  @@map("audit_logs")
+}
+
+// -------------------------------------------------------------
+// 2. Media Assets
+// -------------------------------------------------------------
+
+model MediaAsset {
+  id          String    @id @default(uuid())
+  storage_key String    @unique
+  url         String
+  mime        String
+  width       Int?
+  height      Int?
+  size_bytes  Int?
+  alt_text    String?   // Mandatory before publishing attached content
+  caption     String?
+  credit      String?   // Mandatory photo credit
+  license     String?   // e.g. CC-BY-SA 4.0, All Rights Reserved
+  source_url  String?
+  uploaded_by String?
+  focal_x     Float?    @default(0.5)
+  focal_y     Float?    @default(0.5)
+  is_demo     Boolean   @default(false)
+  deleted_at  DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  place_media    PlaceMedia[]
+  species_media  SpeciesMedia[]
+  sighting_media SightingMedia[]
+  photo_stories  PhotoStory[]
+
+  @@map("media_assets")
+}
+
+// -------------------------------------------------------------
+// 3. Editorial & Articles
+// -------------------------------------------------------------
+
+enum TopicKind {
+  NEWS
+  LIBRARY
+  GENERAL
+}
+
+model Topic {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  name        String
+  description String?
+  kind        TopicKind @default(GENERAL)
+  is_demo     Boolean   @default(false)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  articles ArticleTopic[]
+  library_items LibraryTopic[]
+
+  @@map("topics")
+}
+
+enum ArticleType {
+  NEWS
+  FEATURE
+  FIELD_NOTE
+  INTERVIEW
+  EXPLAINER
+}
+
+enum ContentStatus {
+  DRAFT
+  IN_REVIEW
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
+model Article {
+  id                  String        @id @default(uuid())
+  slug                String        @unique
+  title               String
+  dek                 String?       // Summary deck
+  body                Json          // Tiptap JSON or structured blocks
+  cover_media_id      String?
+  type                ArticleType   @default(NEWS)
+  status              ContentStatus @default(DRAFT)
+  published_at        DateTime?
+  scheduled_at        DateTime?
+  region_id           String?
+  is_featured         Boolean       @default(false)
+  reading_minutes     Int           @default(3)
+  seo_title           String?
+  seo_description     String?
+  og_media_id         String?
+  last_verified_at    DateTime?
+  verified_by_user_id String?
+  locale              String        @default("en")
+  is_demo             Boolean       @default(false)
+  deleted_at          DateTime?
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+
+  verified_by         User?         @relation("ArticleVerifier", fields: [verified_by_user_id], references: [id], onDelete: SetNull)
+  region              Region?       @relation(fields: [region_id], references: [id], onDelete: SetNull)
+
+  authors             ArticleAuthor[]
+  topics              ArticleTopic[]
+  sources             ArticleSource[]
+  corrections         ArticleCorrection[]
+
+  @@index([status, published_at])
+  @@index([type])
+  @@index([slug])
+  @@map("articles")
+}
+
+model ArticleAuthor {
+  article_id String
+  author_id  String
+  order      Int    @default(0)
+
+  article    Article @relation(fields: [article_id], references: [id], onDelete: Cascade)
+  author     Author  @relation(fields: [author_id], references: [id], onDelete: Cascade)
+
+  @@id([article_id, author_id])
+  @@map("article_authors")
+}
+
+model ArticleTopic {
+  article_id String
+  topic_id   String
+
+  article    Article @relation(fields: [article_id], references: [id], onDelete: Cascade)
+  topic      Topic   @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+
+  @@id([article_id, topic_id])
+  @@map("article_topics")
+}
+
+model ArticleSource {
+  id           String    @id @default(uuid())
+  article_id   String
+  title        String
+  publisher    String
+  url          String
+  published_on DateTime?
+  accessed_on  DateTime  @default(now())
+
+  article      Article   @relation(fields: [article_id], references: [id], onDelete: Cascade)
+
+  @@map("article_sources")
+}
+
+model ArticleCorrection {
+  id           String   @id @default(uuid())
+  article_id   String
+  note         String
+  corrected_at DateTime @default(now())
+  created_by   String?
+
+  article      Article  @relation(fields: [article_id], references: [id], onDelete: Cascade)
+
+  @@map("article_corrections")
+}
+
+model Headline {
+  id           String        @id @default(uuid())
+  title        String
+  publisher    String
+  url          String
+  published_on DateTime      @default(now())
+  is_pinned    Boolean       @default(false)
+  status       ContentStatus @default(PUBLISHED)
+  is_demo      Boolean       @default(false)
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+
+  @@index([is_pinned, published_on])
+  @@map("headlines")
+}
+
+// -------------------------------------------------------------
+// 4. Geography & Explorer
+// -------------------------------------------------------------
+
+enum RegionType {
+  GOVERNORATE
+  COAST_SECTOR
+  DESERT_ZONE
+}
+
+model Region {
+  id         String     @id @default(uuid())
+  slug       String     @unique
+  name       String
+  type       RegionType @default(COAST_SECTOR)
+  geometry   Json?      // GeoJSON Polygon
+  is_demo    Boolean    @default(false)
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+
+  places   Place[]
+  articles Article[]
+
+  @@map("regions")
+}
+
+enum PlaceType {
+  COASTAL_TOWN
+  REEF
+  ISLAND
+  DIVE_SITE
+  WADI
+  MOUNTAIN
+  PROTECTED_AREA
+  HERITAGE_SITE
+  VIEWPOINT
+}
+
+model Place {
+  id                  String        @id @default(uuid())
+  slug                String        @unique
+  name                String
+  type                PlaceType     @default(DIVE_SITE)
+  summary             String?
+  body                Json?
+  latitude            Float
+  longitude           Float
+  boundary            Json?         // GeoJSON Polygon
+  region_id           String?
+  protection_status   String?
+  established_year    Int?
+  area_km2            Float?
+  visit_guidance      Json?         // { permits, best_season, safety, rules: [] }
+  cover_media_id      String?
+  status              ContentStatus @default(PUBLISHED)
+  reviewed_by_user_id String?
+  reviewed_at         DateTime?
+  seo_title           String?
+  seo_description     String?
+  locale              String        @default("en")
+  is_demo             Boolean       @default(false)
+  deleted_at          DateTime?
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+
+  region              Region?       @relation(fields: [region_id], references: [id], onDelete: SetNull)
+  reviewed_by         User?         @relation("PlaceReviewer", fields: [reviewed_by_user_id], references: [id], onDelete: SetNull)
+
+  media               PlaceMedia[]
+  sources             PlaceSource[]
+  species             PlaceSpecies[]
+  route_stops         RouteStop[]
+  sightings           Sighting[]
+
+  @@index([type])
+  @@index([status])
+  @@index([latitude, longitude])
+  @@map("places")
+}
+
+model PlaceMedia {
+  place_id String
+  media_id String
+  order    Int    @default(0)
+
+  place    Place      @relation(fields: [place_id], references: [id], onDelete: Cascade)
+  media    MediaAsset @relation(fields: [media_id], references: [id], onDelete: Cascade)
+
+  @@id([place_id, media_id])
+  @@map("place_media")
+}
+
+model PlaceSource {
+  id        String   @id @default(uuid())
+  place_id  String
+  title     String
+  publisher String
+  url       String
+
+  place     Place    @relation(fields: [place_id], references: [id], onDelete: Cascade)
+
+  @@map("place_sources")
+}
+
+enum SpeciesGroup {
+  REPTILE
+  MAMMAL
+  BIRD
+  FISH
+  CORAL
+  INVERTEBRATE
+  PLANT
+  OTHER
+}
+
+enum IucnStatus {
+  LC // Least Concern
+  NT // Near Threatened
+  VU // Vulnerable
+  EN // Endangered
+  CR // Critically Endangered
+  DD // Data Deficient
+  NE // Not Evaluated
+}
+
+model Species {
+  id                  String        @id @default(uuid())
+  slug                String        @unique
+  common_name         String
+  scientific_name     String
+  group               SpeciesGroup  @default(FISH)
+  iucn_status         IucnStatus    @default(LC)
+  description         String?
+  body                Json?
+  habitat             String?
+  diet                String?
+  threats             String?
+  is_sensitive        Boolean       @default(false) // Blur public coordinates
+  cover_media_id      String?
+  status              ContentStatus @default(PUBLISHED)
+  reviewed_by_user_id String?
+  reviewed_at         DateTime?
+  external_ids        Json?         // { gbif, iucn, worms, inaturalist }
+  locale              String        @default("en")
+  is_demo             Boolean       @default(false)
+  deleted_at          DateTime?
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+
+  reviewed_by         User?         @relation("SpeciesReviewer", fields: [reviewed_by_user_id], references: [id], onDelete: SetNull)
+
+  media               SpeciesMedia[]
+  sources             SpeciesSource[]
+  places              PlaceSpecies[]
+  sightings           Sighting[]
+
+  @@index([group])
+  @@index([iucn_status])
+  @@index([is_sensitive])
+  @@map("species")
+}
+
+model SpeciesMedia {
+  species_id String
+  media_id   String
+  order      Int    @default(0)
+
+  species    Species    @relation(fields: [species_id], references: [id], onDelete: Cascade)
+  media      MediaAsset @relation(fields: [media_id], references: [id], onDelete: Cascade)
+
+  @@id([species_id, media_id])
+  @@map("species_media")
+}
+
+model SpeciesSource {
+  id         String   @id @default(uuid())
+  species_id String
+  title      String
+  publisher  String
+  url        String
+
+  species    Species  @relation(fields: [species_id], references: [id], onDelete: Cascade)
+
+  @@map("species_sources")
+}
+
+model PlaceSpecies {
+  place_id   String
+  species_id String
+  notes      String?
+
+  place      Place   @relation(fields: [place_id], references: [id], onDelete: Cascade)
+  species    Species @relation(fields: [species_id], references: [id], onDelete: Cascade)
+
+  @@id([place_id, species_id])
+  @@map("place_species")
+}
+
+model Route {
+  id             String        @id @default(uuid())
+  slug           String        @unique
+  title          String
+  summary        String?
+  body           Json?
+  difficulty     String?       // Easy, Moderate, Demanding
+  duration_hours Float?
+  distance_km    Float?
+  season         String?
+  safety_notes   String?
+  permits_notes  String?
+  geometry       Json?         // GeoJSON LineString
+  status         ContentStatus @default(PUBLISHED)
+  is_demo        Boolean       @default(false)
+  deleted_at     DateTime?
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+
+  stops          RouteStop[]
+
+  @@map("routes")
+}
+
+model RouteStop {
+  route_id String
+  place_id String
+  order    Int    @default(0)
+  note     String?
+
+  route    Route  @relation(fields: [route_id], references: [id], onDelete: Cascade)
+  place    Place  @relation(fields: [place_id], references: [id], onDelete: Cascade)
+
+  @@id([route_id, place_id])
+  @@map("route_stops")
+}
+
+// -------------------------------------------------------------
+// 5. Community Science (Red Sea Watch)
+// -------------------------------------------------------------
+
+enum ObservationType {
+  MARINE
+  BIRD
+  OTHER_WILDLIFE
+}
+
+enum SightingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  NEEDS_INFO
+}
+
+model Sighting {
+  id                   String          @id @default(uuid())
+  species_id           String?
+  reported_common_name String
+  observation_type     ObservationType @default(MARINE)
+  count                Int             @default(1)
+  behavior             String?
+  notes                String?
+  observed_at          DateTime        @default(now())
+
+  // Exact coordinates (Private - Admins/Reviewers only)
+  lat_exact            Float
+  lng_exact            Float
+
+  // Public blurred coordinates (~11km grid centroid for sensitive species)
+  lat_public           Float
+  lng_public           Float
+  location_label       String
+
+  place_id             String?
+  status               SightingStatus  @default(PENDING)
+  review_note          String?
+  reviewed_by_user_id  String?
+  reviewed_at          DateTime?
+
+  reporter_name        String
+  reporter_email       String          // Private: never exposed publicly
+  consent_publish      Boolean         @default(true)
+  consent_data_share   Boolean         @default(true)
+  is_sensitive_species Boolean         @default(false)
+  source               String          @default("WEB") // WEB, IMPORT_INATURALIST, IMPORT_CSV
+  external_ref         String?
+  is_demo              Boolean         @default(false)
+  deleted_at           DateTime?
+  created_at           DateTime        @default(now())
+  updated_at           DateTime        @updatedAt
+
+  species              Species?        @relation(fields: [species_id], references: [id], onDelete: SetNull)
+  place                Place?          @relation(fields: [place_id], references: [id], onDelete: SetNull)
+  reviewed_by          User?           @relation("SightingReviewer", fields: [reviewed_by_user_id], references: [id], onDelete: SetNull)
+
+  media                SightingMedia[]
+
+  @@index([status, observed_at])
+  @@index([is_sensitive_species])
+  @@index([lat_public, lng_public])
+  @@map("sightings")
+}
+
+model SightingMedia {
+  id          String         @id @default(uuid())
+  sighting_id String
+  media_id    String
+  status      SightingStatus @default(PENDING)
+  created_at  DateTime       @default(now())
+
+  sighting    Sighting   @relation(fields: [sighting_id], references: [id], onDelete: Cascade)
+  media       MediaAsset @relation(fields: [media_id], references: [id], onDelete: Cascade)
+
+  @@map("sighting_media")
+}
+
+model PhotoStory {
+  id              String         @id @default(uuid())
+  media_id        String
+  caption         String
+  location_label  String
+  submitter_name  String
+  submitter_email String         // Private
+  status          SightingStatus @default(PENDING)
+  reviewed_by     String?
+  featured        Boolean        @default(false)
+  is_demo         Boolean        @default(false)
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @updatedAt
+
+  media           MediaAsset     @relation(fields: [media_id], references: [id], onDelete: Cascade)
+
+  @@map("photo_stories")
+}
+
+// -------------------------------------------------------------
+// 6. Library & Archive
+// -------------------------------------------------------------
+
+enum LibraryItemType {
+  BOOK
+  PAPER
+  REPORT
+  MAP
+  DOCUMENT
+  ARCHIVE
+  DATASET
+}
+
+model LibraryItem {
+  id               String          @id @default(uuid())
+  slug             String          @unique
+  type             LibraryItemType @default(PAPER)
+  title            String
+  subtitle         String?
+  authors_text     String          // Display string of authors
+  authors          Json?           // Structured authors array
+  publisher        String?
+  year             Int
+  language         String          @default("en")
+  abstract         String?
+  doi              String?
+  isbn             String?
+  external_url     String?
+  file_media_id    String?
+  license          String?
+  is_open_access   Boolean         @default(true)
+  cover_media_id   String?
+  status           ContentStatus   @default(PUBLISHED)
+  verified_by      String?
+  verified_at      DateTime?
+  is_demo          Boolean         @default(false)
+  deleted_at       DateTime?
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+
+  topics           LibraryTopic[]
+  reading_list_items ReadingListItem[]
+
+  @@index([type])
+  @@index([year])
+  @@index([is_open_access])
+  @@map("library_items")
+}
+
+model LibraryTopic {
+  library_item_id String
+  topic_id        String
+
+  library_item    LibraryItem @relation(fields: [library_item_id], references: [id], onDelete: Cascade)
+  topic           Topic       @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+
+  @@id([library_item_id, topic_id])
+  @@map("library_topics")
+}
+
+model ReadingList {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String?
+  is_demo     Boolean  @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  items       ReadingListItem[]
+
+  @@map("reading_lists")
+}
+
+model ReadingListItem {
+  reading_list_id String
+  library_item_id String
+  order           Int     @default(0)
+  note            String?
+
+  reading_list    ReadingList @relation(fields: [reading_list_id], references: [id], onDelete: Cascade)
+  library_item    LibraryItem @relation(fields: [library_item_id], references: [id], onDelete: Cascade)
+
+  @@id([reading_list_id, library_item_id])
+  @@map("reading_list_items")
+}
+
+// -------------------------------------------------------------
+// 7. Organizations, Opportunities & Volunteers
+// -------------------------------------------------------------
+
+enum OrganizationType {
+  NGO
+  UNIVERSITY
+  GOVERNMENT
+  PRIVATE
+  INTERNATIONAL
+}
+
+model Organization {
+  id          String           @id @default(uuid())
+  slug        String           @unique
+  name        String
+  type        OrganizationType @default(NGO)
+  website     String?
+  logo_id     String?
+  description String?
+  country     String           @default("Egypt")
+  is_demo     Boolean          @default(false)
+  created_at  DateTime         @default(now())
+  updated_at  DateTime         @updatedAt
+
+  opportunities      Opportunity[]
+  volunteer_programs VolunteerProgram[]
+
+  @@map("organizations")
+}
+
+enum OpportunityKind {
+  GRANT
+  FELLOWSHIP
+  TRAINING
+  CALL
+  COMPETITION
+  JOB
+}
+
+model Opportunity {
+  id              String          @id @default(uuid())
+  slug            String          @unique
+  title           String
+  kind            OpportunityKind @default(GRANT)
+  summary         String?
+  body            Json?
+  organization_id String
+  eligibility     String?
+  amount_text     String?
+  location_text   String?
+  is_remote       Boolean         @default(false)
+  deadline_at     DateTime?
+  apply_url       String
+  status          ContentStatus   @default(PUBLISHED)
+  verified_by     String?
+  last_checked_at DateTime        @default(now())
+  is_featured     Boolean         @default(false)
+  is_demo         Boolean         @default(false)
+  deleted_at      DateTime?
+  created_at      DateTime        @default(now())
+  updated_at      DateTime        @updatedAt
+
+  organization    Organization    @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+
+  @@index([deadline_at])
+  @@index([status])
+  @@index([kind])
+  @@map("opportunities")
+}
+
+model VolunteerProgram {
+  id              String        @id @default(uuid())
+  slug            String        @unique
+  title           String
+  summary         String?
+  body            Json?
+  organization_id String
+  tasks           Json?         // Array of tasks
+  start_date      DateTime?
+  end_date        DateTime?
+  location_text   String
+  latitude        Float?
+  longitude       Float?
+  skills_needed   String?
+  safety_notes    String?
+  min_age         Int?          @default(18)
+  apply_url       String
+  spots           Int?
+  status          ContentStatus @default(PUBLISHED)
+  is_demo         Boolean       @default(false)
+  deleted_at      DateTime?
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+
+  organization    Organization  @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+
+  @@map("volunteer_programs")
+}
+
+// -------------------------------------------------------------
+// 8. Store (Phase 5 - Enquiries Only)
+// -------------------------------------------------------------
+
+model Maker {
+  id              String   @id @default(uuid())
+  slug            String   @unique
+  name            String
+  story           Json?
+  place_of_origin String?
+  photo_id        String?
+  links           Json?
+  status          ContentStatus @default(PUBLISHED)
+  is_demo         Boolean  @default(false)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  products        Product[]
+
+  @@map("makers")
+}
+
+enum ProductAvailability {
+  AVAILABLE
+  COMING_SOON
+  SOLD_OUT
+}
+
+model Product {
+  id           String              @id @default(uuid())
+  slug         String              @unique
+  maker_id     String
+  title        String
+  description  String?
+  price_amount Decimal?            @db.Decimal(10, 2)
+  currency     String              @default("EGP")
+  images       Json?               // Array of media IDs / URLs
+  materials    String?
+  origin_place String?
+  availability ProductAvailability @default(AVAILABLE)
+  enquiry_only Boolean             @default(true) // No payment processing in v1
+  status       ContentStatus       @default(PUBLISHED)
+  is_demo      Boolean             @default(false)
+  created_at   DateTime            @default(now())
+  updated_at   DateTime            @updatedAt
+
+  maker        Maker               @relation(fields: [maker_id], references: [id], onDelete: Cascade)
+  enquiries    ProductEnquiry[]
+
+  @@map("products")
+}
+
+model ProductEnquiry {
+  id         String   @id @default(uuid())
+  product_id String
+  name       String
+  email      String
+  message    String
+  status     String   @default("NEW")
+  created_at DateTime @default(now())
+
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@map("product_enquiries")
+}
+
+// -------------------------------------------------------------
+// 9. Engagement & System Settings
+// -------------------------------------------------------------
+
+enum SubscriberStatus {
+  PENDING
+  CONFIRMED
+  UNSUBSCRIBED
+}
+
+model NewsletterSubscriber {
+  id           String           @id @default(uuid())
+  email        String           @unique
+  status       SubscriberStatus @default(PENDING)
+  token        String           @unique
+  topics       Json?            // Array of topic slugs
+  confirmed_at DateTime?
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
+
+  @@map("newsletter_subscribers")
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  REPLIED
+  SPAM
+}
+
+model ContactMessage {
+  id          String        @id @default(uuid())
+  name        String
+  email       String
+  subject     String
+  message     String
+  status      ContactStatus @default(NEW)
+  assigned_to String?
+  created_at  DateTime      @default(now())
+
+  @@map("contact_messages")
+}
+
+enum SuggestionKind {
+  STORY
+  SOURCE
+  OPPORTUNITY
+  CORRECTION
+}
+
+model ContentSuggestion {
+  id              String         @id @default(uuid())
+  kind            SuggestionKind @default(STORY)
+  body            String
+  url             String?
+  submitter_email String?
+  status          String         @default("NEW")
+  created_at      DateTime       @default(now())
+
+  @@map("content_suggestions")
+}
+
+model StaticPage {
+  id         String        @id @default(uuid())
+  slug       String        @unique // about, editorial-policy, privacy, data-use, contact
+  title      String
+  body       Json
+  locale     String        @default("en")
+  status     ContentStatus @default(PUBLISHED)
+  created_at DateTime      @default(now())
+  updated_at DateTime      @updatedAt
+
+  @@map("static_pages")
+}
+
+model SiteSetting {
+  key        String   @id
+  value      Json
+  updated_at DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model Redirect {
+  id          String   @id @default(uuid())
+  from_path   String   @unique
+  to_path     String
+  status_code Int      @default(301)
+  created_at  DateTime @default(now())
+
+  @@map("redirects")
+}

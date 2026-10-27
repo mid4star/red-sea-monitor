@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: red-sea-monitor-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: red_sea_monitor
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d red_sea_monitor"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: red-sea-monitor-app
+    restart: always
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgrespassword@db:5432/red_sea_monitor?schema=public"
+      NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+      NEXT_PUBLIC_SITE_NAME: "Red Sea Monitor"
+      AUTH_SECRET: "red-sea-monitor-production-secret-change-me-2026"
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+    driver: local

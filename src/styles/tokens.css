@@ -1,0 +1,61 @@
+:root {
+  /* Editorial Palette: A Field Journal */
+  --ink: #0E1A1F;
+  --paper: #F7F3EC;
+  --paper-card: #FAF7F2;
+  --paper-elevated: #FFFFFF;
+
+  --sea-900: #06303A;
+  --sea-700: #0B5566;
+  --sea-500: #1B8CA0;
+  --sea-100: #D8EEF0;
+
+  --sand-300: #E3D3B4;
+  --sand-600: #B08D57;
+
+  --coral-500: #E4573D;
+  --coral-600: #C94229;
+
+  --border-rule: #0E1A1F1F; /* 12% opacity rule */
+  --border-rule-strong: #0E1A1F33; /* 20% opacity */
+  --text-muted: #4F5E64;
+  --deep-sea: #071418;
+
+  /* Fluid Typography Clamps */
+  --font-size-display: clamp(2.5rem, 5vw + 1rem, 4.25rem);
+  --font-size-h1: clamp(2rem, 3.5vw + 0.5rem, 3rem);
+  --font-size-h2: clamp(1.5rem, 2.2vw + 0.4rem, 2.25rem);
+  --font-size-h3: clamp(1.25rem, 1.5vw + 0.3rem, 1.625rem);
+  --font-size-body: 1.0625rem; /* 17px reading baseline */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-meta: 0.75rem;   /* 12px mono metadata */
+
+  /* Line Heights */
+  --line-height-display: 1.08;
+  --line-height-heading: 1.2;
+  --line-height-body: 1.65;
+}
+
+.dark {
+  /* Night on the Reef Mood */
+  --ink: #F7F3EC;
+  --paper: #071418;
+  --paper-card: #0B1D23;
+  --paper-elevated: #112830;
+
+  --sea-900: #040E11;
+  --sea-700: #1B8CA0;
+  --sea-500: #3AB4CB;
+  --sea-100: #0F323B;
+
+  --sand-300: #A89269;
+  --sand-600: #D4BD93;
+
+  --coral-500: #E4573D;
+  --coral-600: #F06A52;
+
+  --border-rule: #F7F3EC24; /* 14% opacity rule */
+  --border-rule-strong: #F7F3EC40;
+  --text-muted: #A1B2B8;
+  --deep-sea: #030A0D;
+}
