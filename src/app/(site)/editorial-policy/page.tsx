@@ -61,7 +61,7 @@ export default function EditorialPolicyPage() {
 
           <h2>5. Regional Basin Neutrality & UN Cartographic Standards</h2>
           <p>
-            Red Sea Monitor monitors the Red Sea basin as a unified transboundary marine ecosystem. We report across all sovereign littoral nations (Egypt, Sudan, Saudi Arabia, Jordan, Eritrea, Yemen, Djibouti, and Somalia fringe) adhering strictly to UN Cartographic section standards and international maritime hydrography. Our sole focus is peer-verified field ecology, climate refugia, and biodiversity conservation free from political polarization.
+            Red Sea Monitor monitors the Red Sea basin as a unified transboundary marine ecosystem. We report across all coastal littoral nations (Egypt, Sudan, Saudi Arabia, Jordan, Eritrea, Yemen, Djibouti, and Somalia partner) adhering strictly to UN Cartographic section standards and international maritime hydrography. Our sole focus is peer-verified field ecology, climate refugia, and biodiversity conservation free from political polarization.
           </p>
 
           <h2>6. Funding & Independence Disclosure</h2>

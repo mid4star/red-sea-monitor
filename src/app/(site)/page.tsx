@@ -15,7 +15,7 @@ import { WaveDivider, ContourDivider } from '@/components/art/illustrations';
 
 export default function HomePage() {
   return (
-    <div className="w-full relative">
+    <div className="w-full relative pb-24 md:pb-0">
       {/* ------------------------------------------------------------- */}
       {/* Band 0: First-Visit Hero: Basin-Wide Field Journal Masthead */}
       {/* ------------------------------------------------------------- */}

@@ -5,9 +5,12 @@ import { CoordinateTag } from '@/components/ui/coordinate-tag';
 import { CountryFlag } from '@/components/ui/country-flag';
 import { SEED_COUNTRIES } from '@/lib/seed-data';
 
-export const SiteFooter: React.FC = () => {
+export const SiteFooter: React.FC<{ showPartners?: boolean }> = ({ showPartners = false }) => {
+  const coastalCountries = SEED_COUNTRIES.filter((c) => c.is_littoral);
+  const partnerCountries = SEED_COUNTRIES.filter((c) => !c.is_littoral);
+
   return (
-    <footer className="w-full bg-sea-900 text-paper dark:bg-deep-sea border-t border-rule mt-20 transition-colors">
+    <footer data-tone="dark" className="w-full bg-sea-900 text-paper dark:bg-deep-sea border-t border-rule mt-20 transition-colors">
       <div className="max-w-content mx-auto px-4 lg:px-8 py-14">
         {/* Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-paper/10">
@@ -47,13 +50,13 @@ export const SiteFooter: React.FC = () => {
               </ul>
             </div>
 
-            {/* 2. Countries */}
+            {/* 2. Coastal Countries (Strictly 7 Coastal Countries) */}
             <div className="space-y-3">
               <h4 className="font-mono uppercase tracking-widest text-sand-300 font-semibold text-[11px]">
-                Basin Countries
+                Basin Countries ({coastalCountries.length})
               </h4>
               <ul className="space-y-2 text-paper/80">
-                {SEED_COUNTRIES.map((ctry) => (
+                {coastalCountries.map((ctry) => (
                   <li key={ctry.iso2}>
                     <Link
                       href={`/countries/${ctry.iso2.toLowerCase()}`}
@@ -64,6 +67,21 @@ export const SiteFooter: React.FC = () => {
                     </Link>
                   </li>
                 ))}
+                {showPartners && partnerCountries.length > 0 && (
+                  <li className="pt-2 border-t border-paper/10 mt-2">
+                    <span className="block font-mono text-[10px] uppercase text-paper/50 mb-1">Regional Partner:</span>
+                    {partnerCountries.map((ctry) => (
+                      <Link
+                        key={ctry.iso2}
+                        href={`/countries/${ctry.iso2.toLowerCase()}`}
+                        className="hover:text-coral-400 transition-colors flex items-center gap-1.5 text-paper/70"
+                      >
+                        <CountryFlag iso2={ctry.iso2} name={ctry.name} className="w-3 h-2" />
+                        <span>{ctry.name}</span>
+                      </Link>
+                    ))}
+                  </li>
+                )}
               </ul>
             </div>
 
@@ -78,7 +96,6 @@ export const SiteFooter: React.FC = () => {
                 <li><Link href="/data-use" className="hover:text-coral-400 transition-colors">Sighting Data Policy</Link></li>
                 <li><Link href="/partners" className="hover:text-coral-400 transition-colors">Institutional Partners</Link></li>
                 <li><Link href="/credits" className="hover:text-coral-400 transition-colors font-medium text-sand-300">Image & Data Credits</Link></li>
-                <li><Link href="/styleguide" className="hover:text-coral-400 transition-colors">UI Design System</Link></li>
               </ul>
             </div>
 
@@ -97,11 +114,6 @@ export const SiteFooter: React.FC = () => {
                 <li><Link href="/sitemap.xml" className="hover:text-coral-400 transition-colors">XML Sitemap</Link></li>
                 <li><Link href="/newsletter" className="hover:text-coral-400 transition-colors">Field Dispatch Newsletter</Link></li>
                 <li><Link href="/contact" className="hover:text-coral-400 transition-colors">Dispatch Desk</Link></li>
-                <li>
-                  <Link href="/admin" className="text-coral-400 hover:text-coral-300 font-medium transition-colors">
-                    Editor Login (Admin)
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>
@@ -109,7 +121,7 @@ export const SiteFooter: React.FC = () => {
 
         {/* Bottom Strip */}
         <div className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-paper/60 font-mono gap-4">
-          <p>© {new Date().getFullYear()} Red Sea Monitor. Published under open research principles across all sovereign Red Sea littoral states. Non-commercial scientific citation permitted.</p>
+          <p>© {new Date().getFullYear()} Red Sea Monitor. Published under open research principles across the Red Sea coastal countries. Non-commercial scientific citation permitted.</p>
           <div className="flex items-center gap-4">
             <Link href="/credits" className="hover:text-paper transition-colors">Credits</Link>
             <span>•</span>

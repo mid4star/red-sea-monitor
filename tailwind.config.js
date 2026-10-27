@@ -16,6 +16,7 @@ export default {
         paper: 'var(--paper)',
         ink: 'var(--ink)',
         'sea-900': 'var(--sea-900)',
+        'sea-800': 'var(--sea-800)',
         'sea-700': 'var(--sea-700)',
         'sea-500': 'var(--sea-500)',
         'sea-100': 'var(--sea-100)',

@@ -6,6 +6,7 @@ import { CoordinateTag } from './coordinate-tag';
 import { SampleBadge } from './sample-badge';
 import { Badge } from './badge';
 import { formatDateDeterministic } from '@/lib/date';
+import { CoralArt } from '@/components/art/illustrations';
 
 // -------------------------------------------------------------
 // 1. StoryCard (News & Features)
@@ -22,6 +23,9 @@ export interface StoryCardProps {
   sourcePublisher?: string;
   isDemo?: boolean;
   featured?: boolean;
+  isIllustration?: boolean;
+  illustrationLabel?: string;
+  photoCredit?: string;
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({
@@ -36,11 +40,21 @@ export const StoryCard: React.FC<StoryCardProps> = ({
   sourcePublisher,
   isDemo = false,
   featured = false,
+  isIllustration = false,
+  illustrationLabel,
+  photoCredit,
 }) => {
   return (
     <article className="group relative flex flex-col justify-between border-b border-rule pb-6">
       <div>
-        {coverUrl && (
+        {isIllustration ? (
+          <div className="relative w-full aspect-[16/9] mb-4 overflow-hidden rounded-md bg-sand-300/20 border border-rule">
+            <CoralArt className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+            <div className="absolute bottom-2 left-2 bg-sea-900/80 backdrop-blur-sm text-paper text-[11px] font-mono px-2 py-0.5 rounded border border-paper/20">
+              {illustrationLabel || 'Illustration: Reef Refugia'}
+            </div>
+          </div>
+        ) : coverUrl ? (
           <div className="relative w-full aspect-[16/9] mb-4 overflow-hidden rounded-md bg-sand-300/20 border border-rule">
             <Image
               src={coverUrl}
@@ -49,8 +63,13 @@ export const StoryCard: React.FC<StoryCardProps> = ({
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             />
+            {photoCredit && (
+              <div className="absolute bottom-1 right-1 bg-sea-900/80 backdrop-blur-sm text-paper text-[9px] font-mono px-1.5 py-0.5 rounded">
+                {photoCredit}
+              </div>
+            )}
           </div>
-        )}
+        ) : null}
 
         <div className="flex flex-wrap items-center gap-2 mb-2">
           <Badge variant="sea">{type.replace('_', ' ')}</Badge>

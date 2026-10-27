@@ -62,6 +62,7 @@ export async function OpportunitiesSection() {
   return (
     <section
       id="section-opportunities"
+      data-tone="dark"
       aria-labelledby="heading-opportunities"
       className="w-full bg-sea-900 text-paper py-16 md:py-24 border-y border-sea-700/60 transition-colors"
     >

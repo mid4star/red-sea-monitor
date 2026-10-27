@@ -2368,7 +2368,7 @@ export const SEED_LIBRARY_ITEMS: any[] = [
     abstract: 'Thermal tolerance assays demonstrate that northern Red Sea corals withstand elevated temperatures without bleaching. The evolutionary filter of the warm southern sill creates a vital regional thermal refuge.',
     doi: '10.1111/gcb.12356',
     external_url: 'https://doi.org/10.1111/gcb.12356',
-    is_open_access: true,
+    is_open_access: false,
     verified_via: 'Crossref',
     verified_at: new Date('2026-10-27T00:00:00Z'),
     status: 'PUBLISHED',

@@ -234,6 +234,7 @@ export const REAL_BASIN_HOTSPOTS: MapHotspot[] = [
 export const BasinMap: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<'ALL' | 'MPA' | 'REEF' | 'SIGHTING'>('ALL');
   const [activeHotspot, setActiveHotspot] = useState<MapHotspot>(REAL_BASIN_HOTSPOTS[0]);
+  const [zoomLevel, setZoomLevel] = useState(1);
 
   const filteredHotspots =
     activeCategory === 'ALL'
@@ -266,7 +267,7 @@ export const BasinMap: React.FC = () => {
                 className={clsx(
                   'px-3 py-1.5 rounded-sm border transition-colors whitespace-nowrap text-xs font-mono font-medium',
                   isSelected
-                    ? 'bg-sea-800 text-paper border-sea-700 font-semibold shadow-xs dark:bg-coral-950/70 dark:border-coral-400 dark:text-paper'
+                    ? 'bg-sea-900 text-white border-sea-800 font-semibold shadow-xs dark:bg-coral-950 dark:border-coral-400 dark:text-white'
                     : 'bg-paper-card dark:bg-sea-900/40 text-ink dark:text-paper border-rule hover:border-sea-600 hover:bg-sand-100 dark:hover:bg-sea-800/50'
                 )}
               >
@@ -284,10 +285,10 @@ export const BasinMap: React.FC = () => {
 
       {/* 60 / 40 Desktop Split Layout: Equal Height */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-        {/* Left: 60% Map Canvas */}
-        <div className="lg:col-span-7 bg-[#EBE7DF] dark:bg-[#07171C] rounded-lg border border-rule overflow-hidden relative shadow-sm flex flex-col justify-between">
+        {/* Left: 60% Map Canvas (65vh mobile height standard) */}
+        <div className="lg:col-span-7 bg-[#EBE7DF] dark:bg-[#07171C] rounded-lg border border-rule overflow-hidden relative shadow-sm flex flex-col justify-between h-[65vh] min-h-[460px] max-h-[640px] lg:h-auto">
           {/* Hydrographic Map Header Info Bar */}
-          <div className="p-3 bg-paper/95 dark:bg-sea-950/90 border-b border-rule flex items-center justify-between text-xs font-mono text-muted">
+          <div className="p-3 bg-paper/95 dark:bg-sea-950/90 border-b border-rule flex items-center justify-between text-xs font-mono text-muted relative z-10">
             <span className="flex items-center gap-1.5 font-medium text-sea-800 dark:text-sea-400">
               <Compass className="w-3.5 h-3.5" />
               <span>Red Sea Tectonic Rift & Coastal Bathymetry</span>
@@ -295,8 +296,31 @@ export const BasinMap: React.FC = () => {
             <span className="hidden sm:inline">WGS84 • No Political Borders</span>
           </div>
 
+          {/* Map Zoom Controls */}
+          <div className="absolute top-14 right-3 z-10 flex flex-col gap-1 select-none">
+            <button
+              type="button"
+              onClick={() => setZoomLevel((z) => Math.min(z + 0.15, 1.5))}
+              aria-label="Zoom in map"
+              className="w-7 h-7 rounded bg-paper/95 text-ink dark:bg-sea-950/90 dark:text-paper border border-rule shadow-xs flex items-center justify-center font-bold text-sm hover:bg-sand-100 active:scale-95 transition-all"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              onClick={() => setZoomLevel((z) => Math.max(z - 0.15, 0.85))}
+              aria-label="Zoom out map"
+              className="w-7 h-7 rounded bg-paper/95 text-ink dark:bg-sea-950/90 dark:text-paper border border-rule shadow-xs flex items-center justify-center font-bold text-sm hover:bg-sand-100 active:scale-95 transition-all"
+            >
+              −
+            </button>
+          </div>
+
           {/* SVG Map Container */}
-          <div className="relative w-full max-w-[560px] mx-auto aspect-[600/900] p-4 select-none flex items-center justify-center">
+          <div
+            className="relative w-full max-w-[560px] mx-auto aspect-[600/900] p-4 select-none flex items-center justify-center transition-transform duration-200"
+            style={{ transform: `scale(${zoomLevel})` }}
+          >
             <svg
               viewBox="0 0 600 900"
               className="w-full h-full drop-shadow-sm"
@@ -469,6 +493,15 @@ export const BasinMap: React.FC = () => {
                       />
                     )}
 
+                    {/* Minimum 36px Touch Target for Mobile (>= 32px standard) */}
+                    <circle
+                      cx={hs.svgX}
+                      cy={hs.svgY}
+                      r="18"
+                      fill="transparent"
+                      className="cursor-pointer"
+                    />
+
                     {/* Outer Pin Body */}
                     <circle
                       cx={hs.svgX}
@@ -610,7 +643,7 @@ export const BasinMap: React.FC = () => {
                     className={clsx(
                       'flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded border text-left transition-all',
                       isSelected
-                        ? 'bg-sea-800 text-paper border-sea-700 font-semibold shadow-xs dark:bg-coral-950/70 dark:border-coral-400 dark:text-paper'
+                        ? 'bg-sea-900 text-white border-sea-800 font-semibold shadow-xs dark:bg-coral-950 dark:border-coral-400 dark:text-white'
                         : 'bg-paper-card dark:bg-sea-900/30 text-ink dark:text-paper border-rule hover:border-sea-600 hover:bg-sand-100 dark:hover:bg-sea-800/40'
                     )}
                   >
@@ -618,7 +651,7 @@ export const BasinMap: React.FC = () => {
                     <span
                       className={clsx(
                         'font-mono text-[10px] font-bold',
-                        isSelected ? 'text-coral-300' : 'text-muted'
+                        isSelected ? 'text-coral-300' : 'text-sea-700 dark:text-sea-400'
                       )}
                     >
                       [{hs.iso2}]
@@ -626,7 +659,7 @@ export const BasinMap: React.FC = () => {
                     <span
                       className={clsx(
                         'font-sans font-medium',
-                        isSelected ? 'text-paper' : 'text-ink dark:text-paper'
+                        isSelected ? 'text-white font-semibold' : 'text-ink dark:text-paper'
                       )}
                     >
                       {hs.name}

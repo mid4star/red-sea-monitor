@@ -109,7 +109,7 @@ export default async function CountryDossierPage({ params }: CountryPageProps) {
             <div className="flex flex-wrap items-center gap-2">
               <CountryFlag iso2={country.iso2} name={country.name} className="w-8 h-6 rounded-xs shadow-sm" />
               <Badge variant={isComingSoon ? 'neutral' : 'sea'}>
-                {isComingSoon ? 'Coming Soon / Baseline Survey' : 'Active Sovereign Basin Member'}
+                {isComingSoon ? 'Coming Soon / Baseline Survey' : 'Active Coastal Basin Member'}
               </Badge>
               <CoordinateTag lat={country.latitude} lng={country.longitude} />
               <SampleBadge />

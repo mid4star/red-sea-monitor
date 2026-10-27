@@ -9,24 +9,43 @@ export interface CitationRecord {
   authors_text: string;
   year?: number | null;
   publisher?: string | null;
+  volume?: string | number | null;
+  issue?: string | number | null;
+  pages?: string | null;
   doi?: string | null;
   isbn?: string | null;
   type?: string | null;
   external_url?: string | null;
+  is_open_access?: boolean;
 }
 
 export function formatApaCitation(item: CitationRecord): string {
   const authors = (item.authors_text || 'Red Sea Monitor Editorial Desk').trim();
   const yearStr = item.year ? `(${item.year})` : '(n.d.)';
   const titleStr = (item.title || '').trim();
-  const publisherStr = item.publisher ? `${item.publisher.trim()}.` : '';
+  
+  let journalPart = '';
+  if (item.publisher) {
+    journalPart = item.publisher.trim();
+    if (item.volume) {
+      journalPart += `, ${item.volume}`;
+      if (item.issue) {
+        journalPart += `(${item.issue})`;
+      }
+    }
+    if (item.pages) {
+      journalPart += `, ${item.pages}`;
+    }
+    journalPart += '.';
+  }
+
   const doiOrUrl = item.doi
     ? `https://doi.org/${item.doi.trim()}`
     : item.external_url
     ? item.external_url.trim()
     : '';
 
-  return `${authors} ${yearStr}. ${titleStr}. ${publisherStr} ${doiOrUrl}`.trim().replace(/\s{2,}/g, ' ');
+  return `${authors} ${yearStr}. ${titleStr}. ${journalPart} ${doiOrUrl}`.trim().replace(/\s{2,}/g, ' ');
 }
 
 export function formatBibtexCitation(item: CitationRecord, customKey?: string): string {
@@ -53,11 +72,13 @@ export function formatBibtexCitation(item: CitationRecord, customKey?: string): 
   ];
 
   if (item.year) fields.push(`  year={${item.year}},`);
-  if (item.publisher) fields.push(`  publisher={${item.publisher}},`);
+  if (item.publisher) fields.push(`  journal={${item.publisher}},`);
+  if (item.volume) fields.push(`  volume={${item.volume}},`);
+  if (item.issue) fields.push(`  number={${item.issue}},`);
+  if (item.pages) fields.push(`  pages={${item.pages}},`);
   if (item.doi) fields.push(`  doi={${item.doi}},`);
   if (item.isbn) fields.push(`  isbn={${item.isbn}},`);
   if (item.external_url) fields.push(`  url={${item.external_url}},`);
 
-  fields.push(`}`);
-  return fields.join('\n');
+  return `${fields.join('\n')}\n}`;
 }

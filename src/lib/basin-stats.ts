@@ -70,7 +70,7 @@ export function getBasinTelemetry(): BasinStatItem[] {
       is_sample: false,
     },
     {
-      stat_key: 'basin_sovereignty',
+      stat_key: 'basin_littoral_states',
       value: `${littoralCount} Active`,
       unit: 'States',
       label: 'Littoral Basin Members',

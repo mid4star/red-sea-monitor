@@ -213,7 +213,7 @@ function RegionSelectorInner({ className = '', variant = 'compact' }: RegionSele
             {selectedIso2 === 'ALL' && <Check className="w-4 h-4 shrink-0 text-paper" />}
           </button>
 
-          {/* Individual Sovereign Countries */}
+          {/* Individual Coastal Countries */}
           <div className="max-h-60 overflow-y-auto space-y-0.5 pt-1 border-t border-rule/60">
             {SEED_COUNTRIES.map((ctry) => {
               const isSelected = selectedIso2 === ctry.iso2.toUpperCase();

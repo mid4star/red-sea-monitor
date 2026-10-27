@@ -7,6 +7,7 @@ export const ContributeSection: React.FC = () => {
   return (
     <section
       id="section-contribute"
+      data-tone="dark"
       aria-labelledby="heading-contribute"
       className="w-full bg-sea-700 text-paper py-14 md:py-20 border-y border-sea-500/30 transition-colors"
     >

@@ -114,15 +114,12 @@ export async function ExplorerSection() {
             <div className="lg:col-span-4 p-5 rounded-md bg-paper dark:bg-deep-sea border border-rule flex flex-col justify-between space-y-4 hover:border-coral-500/40 transition-colors">
               <div className="space-y-3">
                 <div className="relative aspect-[16/10] w-full rounded overflow-hidden border border-rule/50">
-                  <Image
-                    src="https://images.unsplash.com/photo-1516683037151-9a17603a8dc7?auto=format&fit=crop&w=600&q=80"
-                    alt="Sanganeb Atoll coral wall and lighthouse, Sudan"
-                    fill
-                    sizes="360px"
-                    className="object-cover"
-                  />
+                  <CoralArt className="w-full h-full object-cover" />
                   <div className="absolute top-2 left-2">
-                    <CountryFlag iso2="SD" size="sm" showBadge />
+                    <CountryFlag iso2="SD" size="sm" showBadge tone="overlay" />
+                  </div>
+                  <div className="absolute bottom-2 left-2 bg-sea-900/80 backdrop-blur-sm text-paper text-[10px] font-mono px-2 py-0.5 rounded border border-paper/20">
+                    Illustration: Atoll Reef Wall
                   </div>
                 </div>
 
@@ -136,12 +133,20 @@ export async function ExplorerSection() {
                 </h4>
 
                 <p className="text-xs text-muted font-sans leading-relaxed line-clamp-3">
-                  Sudan’s premier oceanic atoll rising abruptly from an 800m abyssal plain 25km northeast of Port Sudan. UNESCO World Heritage designated for sheer reef walls, schooling pelagics, and pristine coral density.
+                  Sudan’s premier oceanic atoll rising abruptly from an 800m abyssal plain 25km northeast of Port Sudan. UNESCO World Heritage (Ref. 262bis) designated for sheer reef walls, schooling pelagics, and pristine coral density.
                 </p>
               </div>
 
               <div className="pt-3 border-t border-rule flex items-center justify-between text-xs font-sans">
-                <span className="text-muted font-mono text-[11px]">Category: MPA / Atoll</span>
+                <a
+                  href="https://whc.unesco.org/en/list/262"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted hover:text-coral-600 font-mono text-[11px] underline flex items-center gap-1"
+                  title="Source: UNESCO World Heritage Centre Ref 262bis"
+                >
+                  <span>UNESCO Ref 262bis</span>
+                </a>
                 <Link
                   href="/explorer/places/sanganeb-atoll"
                   className="text-coral-600 dark:text-coral-400 hover:underline flex items-center gap-1 font-medium"
@@ -156,15 +161,12 @@ export async function ExplorerSection() {
             <div className="lg:col-span-4 p-5 rounded-md bg-paper dark:bg-deep-sea border border-rule flex flex-col justify-between space-y-4 hover:border-coral-500/40 transition-colors">
               <div className="space-y-3">
                 <div className="relative aspect-[16/10] w-full rounded overflow-hidden border border-rule/50">
-                  <Image
-                    src="https://images.unsplash.com/photo-1544552866-d3ed42536cfd?auto=format&fit=crop&w=600&q=80"
-                    alt="Fringing coral reef gardens in Aqaba Marine Reserve, Jordan"
-                    fill
-                    sizes="360px"
-                    className="object-cover"
-                  />
+                  <MarineReserveArt className="w-full h-full object-cover" />
                   <div className="absolute top-2 left-2">
-                    <CountryFlag iso2="JO" size="sm" showBadge />
+                    <CountryFlag iso2="JO" size="sm" showBadge tone="overlay" />
+                  </div>
+                  <div className="absolute bottom-2 left-2 bg-sea-900/80 backdrop-blur-sm text-paper text-[10px] font-mono px-2 py-0.5 rounded border border-paper/20">
+                    Illustration: Fringing Reef Gardens
                   </div>
                 </div>
 
@@ -183,7 +185,15 @@ export async function ExplorerSection() {
               </div>
 
               <div className="pt-3 border-t border-rule flex items-center justify-between text-xs font-sans">
-                <span className="text-muted font-mono text-[11px]">Category: Marine Reserve</span>
+                <a
+                  href="https://doi.org/10.1111/gcb.12198"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted hover:text-coral-600 font-mono text-[11px] underline flex items-center gap-1"
+                  title="Source: Fine et al. 2013 Global Change Biology"
+                >
+                  <span>Fine et al. (DOI)</span>
+                </a>
                 <Link
                   href="/explorer/places/aqaba-marine-reserve"
                   className="text-coral-600 dark:text-coral-400 hover:underline flex items-center gap-1 font-medium"

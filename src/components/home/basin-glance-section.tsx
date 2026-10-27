@@ -10,14 +10,14 @@ import { BasinMap } from '@/components/home/basin-map';
 
 export const BasinGlanceSection: React.FC = () => {
   const telemetryStats = getBasinTelemetry();
-  const publishedCountries = SEED_COUNTRIES.filter((c) => c.status !== 'DISABLED');
+  const publishedCountries = SEED_COUNTRIES.filter((c) => c.is_littoral);
 
   return (
     <section
       aria-labelledby="basin-glance-heading"
-      className="w-full border-b border-rule bg-paper-card/70 dark:bg-deep-sea py-14 md:py-20 transition-colors overflow-hidden"
+      className="w-full border-b border-rule bg-paper-card/70 dark:bg-deep-sea py-12 md:py-20 transition-colors overflow-hidden"
     >
-      <div className="max-w-content mx-auto px-4 lg:px-8 space-y-12">
+      <div className="max-w-content mx-auto px-4 lg:px-8 space-y-6 sm:space-y-8 lg:space-y-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-rule">
           <div className="space-y-3 max-w-2xl">
@@ -32,7 +32,7 @@ export const BasinGlanceSection: React.FC = () => {
               The Basin at a Glance
             </h2>
             <p className="font-sans text-base sm:text-lg text-muted leading-relaxed">
-              A single tectonic rift and transboundary ecosystem spanning sovereign littoral shores, over 6,400 kilometers of reef crest, and the planet’s premier evolutionary coral thermal refugia.
+              A single tectonic rift and transboundary ecosystem spanning 7 coastal littoral shores, over 6,400 kilometers of reef crest, and the planet’s premier evolutionary coral thermal refugia.
             </p>
           </div>
 
@@ -47,7 +47,7 @@ export const BasinGlanceSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 4 Telemetry Metrics (Derived from single source of truth in src/lib/basin-stats.ts) */}
+        {/* 4 Telemetry Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {telemetryStats.map((stat) => (
             <div
@@ -79,11 +79,11 @@ export const BasinGlanceSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Horizontal Country Chip Bar (Using SVG flags & non-truncated names) */}
-        <div className="space-y-2.5">
+        {/* Horizontal Country Chip Bar (Strictly 7 Coastal Countries) */}
+        <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono text-muted">
-            <span>Sovereign Coastline Dossiers:</span>
-            <span className="hidden sm:inline">Click to explore sovereign country hub</span>
+            <span>Country dossiers:</span>
+            <span className="hidden sm:inline">Click to explore country hub</span>
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">

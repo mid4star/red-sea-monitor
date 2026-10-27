@@ -9,6 +9,7 @@ export interface CountryFlagProps {
   showCode?: boolean;
   showBadge?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  tone?: 'light' | 'dark' | 'overlay';
 }
 
 export const CountryFlag: React.FC<CountryFlagProps> = ({
@@ -18,6 +19,7 @@ export const CountryFlag: React.FC<CountryFlagProps> = ({
   showCode = false,
   showBadge = false,
   size,
+  tone = 'light',
 }) => {
   const code = (iso2 || '').toUpperCase();
   const countryName = name || code;
@@ -132,13 +134,34 @@ export const CountryFlag: React.FC<CountryFlagProps> = ({
     }
   };
 
+  if (tone === 'overlay') {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-sea-950/90 text-paper border border-white/20 shadow-md">
+        <span className={`inline-block shrink-0 overflow-hidden ${sizeClass}`}>
+          {renderSvg()}
+        </span>
+        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-white">
+          {code}
+        </span>
+      </span>
+    );
+  }
+
+  const isDark = tone === 'dark';
+
   return (
     <span className="inline-flex items-center gap-1.5 align-middle">
       <span className={`inline-block shrink-0 overflow-hidden ${sizeClass}`}>
         {renderSvg()}
       </span>
       {(showCode || showBadge) && (
-        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted">
+        <span
+          className={`font-mono text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded border ${
+            isDark
+              ? 'text-paper bg-paper/15 border-paper/25'
+              : 'text-sea-900 dark:text-paper bg-sand-200/50 dark:bg-sea-800/40 border-rule'
+          }`}
+        >
           {code}
         </span>
       )}

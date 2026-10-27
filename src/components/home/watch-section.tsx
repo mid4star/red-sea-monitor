@@ -39,6 +39,7 @@ export async function WatchSection() {
   return (
     <section
       id="section-watch"
+      data-tone="dark"
       aria-labelledby="heading-watch"
       className="w-full bg-sea-900 text-paper py-16 md:py-24 border-y border-sea-700/60 transition-colors"
     >
@@ -62,85 +63,122 @@ export async function WatchSection() {
                 <span>Recent Observations</span>
               </h3>
               <span className="text-[11px] font-mono text-paper/60">
-                Verified Telemetry Feed
+                Sample Telemetry Feed
               </span>
             </div>
 
             {/* Mobile horizontal scroll-snap / Desktop stack */}
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:pb-0 md:flex-col md:overflow-visible">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 md:pb-0 md:flex-col md:overflow-visible">
               {sightings.map((stg, idx) => {
                 const iucn = stg.species?.iucn_status || 'VU';
                 const iucnBorder = getIucnColor(iucn);
+                const isDugong = stg.reported_common_name?.toLowerCase().includes('dugong') ||
+                  stg.species?.scientific_name?.toLowerCase().includes('dugong');
                 const photoSrc = (stg as any).photo_url || DEFAULT_WATCH_IMAGES[idx % DEFAULT_WATCH_IMAGES.length];
 
                 return (
                   <article
                     key={stg.id}
-                    className={`min-w-[82vw] sm:min-w-[340px] md:min-w-0 snap-center p-5 rounded-md bg-paper/5 backdrop-blur-sm border border-paper/15 border-l-4 ${iucnBorder} space-y-4 hover:border-paper/30 transition-all`}
+                    className={`min-w-[82vw] sm:min-w-[340px] md:min-w-0 snap-center p-5 rounded-md bg-paper/5 backdrop-blur-sm border border-paper/15 border-l-4 ${iucnBorder} flex flex-col justify-between space-y-4 hover:border-paper/30 transition-all`}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3.5">
-                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded shrink-0 overflow-hidden border border-paper/20">
-                          <Image
-                            src={photoSrc}
-                            alt={stg.reported_common_name}
-                            fill
-                            sizes="80px"
-                            className="object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2 text-xs font-mono text-paper/70 mb-1">
-                            <CountryFlag iso2={stg.country_iso2} size="sm" showBadge />
-                            <span>•</span>
-                            <CoordinateTag lat={stg.lat_public} lng={stg.lng_public} tone="dark" />
-                          </div>
-                          <h4 className="font-serif text-lg font-bold text-paper leading-snug">
-                            {stg.reported_common_name}
-                          </h4>
-                          {stg.species?.scientific_name && (
-                            <p className="text-xs text-coral-300 font-sans mt-0.5">
-                              <SciName>{stg.species.scientific_name}</SciName>
-                              <span className="ml-2 font-mono text-[10px] bg-paper/15 px-1.5 py-0.2 rounded text-paper">
-                                IUCN: {iucn}
-                              </span>
-                            </p>
-                          )}
+                    <div className="space-y-3.5">
+                      {/* Visual: Image or illustration on top (16:10) */}
+                      <div className="relative aspect-[16/10] w-full rounded overflow-hidden border border-paper/20">
+                        {isDugong ? (
+                          <>
+                            <DugongArt className="w-full h-full object-cover" />
+                            <div className="absolute bottom-2 left-2 bg-sea-900/80 backdrop-blur-sm text-paper text-[10px] font-mono px-2 py-0.5 rounded border border-paper/20">
+                              Illustration: Dugong dugon
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <Image
+                              src={photoSrc}
+                              alt={stg.reported_common_name}
+                              fill
+                              sizes="(max-width: 768px) 82vw, 340px"
+                              className="object-cover"
+                            />
+                            <div className="absolute bottom-1 right-1 bg-sea-900/80 backdrop-blur-sm text-paper text-[9px] font-mono px-1.5 py-0.5 rounded">
+                              Photo: {stg.reporter_name || 'Field Contributor'}
+                            </div>
+                          </>
+                        )}
+                        <div className="absolute top-2 left-2">
+                          <CountryFlag iso2={stg.country_iso2} size="sm" showBadge tone="overlay" />
                         </div>
                       </div>
 
-                      <div className="shrink-0 text-right">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded">
-                          <ShieldCheck className="w-3 h-3" />
-                          <span>Verified</span>
-                        </span>
+                      {/* Metadata Row: Coordinates & Sector */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-paper/70">
+                        <CoordinateTag lat={stg.lat_public} lng={stg.lng_public} tone="dark" />
+                        <span className="text-[11px] text-paper/60 truncate max-w-[160px]">{stg.location_label}</span>
                       </div>
+
+                      {/* Title & Taxonomy */}
+                      <div>
+                        <h4 className="font-serif text-lg font-bold text-paper leading-snug">
+                          {stg.reported_common_name}
+                        </h4>
+                        {stg.species?.scientific_name && (
+                          <p className="text-xs text-coral-300 font-sans mt-0.5">
+                            <SciName>{stg.species.scientific_name}</SciName>
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Behavior text */}
+                      <p className="text-xs text-paper/80 font-sans line-clamp-2 leading-relaxed">
+                        {stg.behavior || stg.notes || 'Recorded in field log.'}
+                      </p>
                     </div>
 
-                    <p className="text-xs text-paper/80 font-sans line-clamp-2 leading-relaxed">
-                      {stg.behavior || stg.notes || 'Recorded in field log.'}
-                    </p>
-
-                    <div className="pt-2 border-t border-paper/10 flex items-center justify-between text-xs font-sans text-paper/60">
-                      <span>Observer: {stg.reporter_name || 'Field Researcher'}</span>
-                      <time dateTime={stg.observed_at ? new Date(stg.observed_at).toISOString() : ''}>
-                        {stg.observed_at ? new Date(stg.observed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Recent'}
-                      </time>
+                    {/* Bottom Row: Status Badge, Observer, Date, and SAMPLE tag */}
+                    <div className="pt-3 border-t border-paper/10 flex flex-wrap items-center justify-between gap-2 text-xs font-sans text-paper/70">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] bg-paper/15 px-1.5 py-0.5 rounded text-paper font-semibold">
+                          IUCN: {iucn}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono text-amber-300 bg-amber-950/60 border border-amber-500/30 px-1.5 py-0.5 rounded">
+                          Sample record
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-paper/60 font-mono">
+                        <span>{stg.reporter_name?.split(' ')[0] || 'Observer'}</span>
+                        <span className="mx-1">•</span>
+                        <time dateTime={stg.observed_at ? new Date(stg.observed_at).toISOString() : ''}>
+                          {stg.observed_at ? new Date(stg.observed_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'Recent'}
+                        </time>
+                      </div>
                     </div>
                   </article>
                 );
               })}
             </div>
 
+            {/* Mobile snap dots indicator */}
+            <div className="flex justify-center gap-1.5 md:hidden py-1">
+              {sightings.map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === 0 ? 'w-5 bg-coral-400' : 'w-1.5 bg-paper/30'
+                  }`}
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
+
             <div className="pt-2">
-              <Link href="/watch" className="block w-full sm:w-auto">
+              <Link href="/watch" className="block w-full">
                 <Button
                   variant="outline"
                   size="lg"
                   className="w-full sm:w-auto min-h-[48px] border-paper/30 text-paper hover:bg-paper/10 justify-center"
                 >
                   <Eye className="w-4 h-4 mr-2" />
-                  <span>Browse All 84+ Telemetry Records</span>
+                  <span>Browse All 84+ Telemetry Records (SAMPLE)</span>
                 </Button>
               </Link>
             </div>

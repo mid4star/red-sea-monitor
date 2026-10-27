@@ -1,0 +1,8 @@
+file,record_type,record_slug,alt_text,author,licence,source_url,date_taken,location
+hero-cover.jpg,HERO,home,"Coral pinnacle reef wall underwater in the northern Red Sea",Sebastian Pena Lambarri,Unsplash License,https://unsplash.com/photos/7Zb7kUy0-d8,2024-06-15,"Ras Mohammed, Egypt"
+coral-refugia.jpg,ARTICLE,coral-resilience-gulf-aqaba-super-reefs,"Illustration of thermo-tolerant hard corals in the Gulf of Aqaba",Red Sea Monitor Scientific Graphics,CC BY-NC 4.0,https://redseamonitor.org/illustrations,2026-10-24,"Gulf of Aqaba, Jordan / Egypt"
+sanganeb-atoll.jpg,PLACE,sanganeb-atoll,"Steep drop-off reef wall at Sanganeb Oceanic Atoll",Red Sea Monitor Cartographic Graphics,CC BY-NC 4.0,https://whc.unesco.org/en/list/262,2026-10-24,"Sanganeb Atoll, Sudan"
+aqaba-reserve.jpg,PLACE,aqaba-marine-reserve,"Pristine shallow coral gardens in Aqaba Marine Reserve",Red Sea Monitor Cartographic Graphics,CC BY-NC 4.0,https://doi.org/10.1111/gcb.12198,2026-10-24,"Aqaba, Jordan"
+dugong-pasture.jpg,SPECIES,dugong-dugon,"Dugong dugon grazing on shallow Halophila ovalis seagrass",Red Sea Monitor Field Illustration,CC BY-NC 4.0,https://redseamonitor.org/species/dugong,2026-10-24,"Marsa Abu Dabbab, Egypt"
+spinner-dolphins.jpg,SIGHTING,stg-02,"Pod of spinner dolphins resting in sheltered lagoon",Layla Mansour,CC BY 4.0,https://redseamonitor.org/watch/stg-02,2026-10-23,"Sha’ab Sataya, Egypt"
+osprey-nest.jpg,SIGHTING,stg-03,"Western osprey pair nesting on navigational beacon",Dr. John Miller,CC BY 4.0,https://redseamonitor.org/watch/stg-03,2026-10-19,"Giftun Island, Egypt"
